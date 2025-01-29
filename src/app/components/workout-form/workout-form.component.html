@@ -1,0 +1,32 @@
+<div class="p-4 border rounded-lg bg-white shadow-md">
+  <h2 class="text-lg font-semibold mb-2">Add Workout</h2>
+
+  <label class="block mb-1">User Name:</label>
+  <input
+    type="text"
+    [(ngModel)]="userName"
+    class="w-full p-2 border rounded"
+    placeholder="Enter name"
+  />
+
+  <label class="block mt-2 mb-1">Workout Type:</label>
+  <select [(ngModel)]="workoutType" class="w-full p-2 border rounded">
+    <option value="" disabled>Select a workout</option>
+    <option *ngFor="let type of workoutTypes" [value]="type">{{ type }}</option>
+  </select>
+
+  <label class="block mt-2 mb-1">Workout Minutes:</label>
+  <input
+    type="number"
+    [(ngModel)]="workoutMinutes"
+    class="w-full p-2 border rounded"
+    placeholder="Minutes"
+  />
+
+  <button
+    (click)="addWorkout()"
+    class="mt-4 w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
+  >
+    Add Workout
+  </button>
+</div>
