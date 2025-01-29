@@ -1,0 +1,26 @@
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.bg-gradient {
+  background: linear-gradient(
+    -45deg,
+    #3b82f6,
+    #06b6d4,
+    #10b981,
+    #a855f7
+  ); /* Blue → Cyan → Green → Purple */
+  background-size: 300% 300%;
+  animation: gradientMove 10s ease infinite;
+}
+.layout-container {
+  @apply flex items-center justify-center min-h-screen bg-gradient;
+}

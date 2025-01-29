@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common'; // ✅ Required for *ngIf, *ngFor
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-workout-form',
-  standalone: true,
   imports: [FormsModule, CommonModule],
   templateUrl: './workout-form.component.html',
   styleUrls: ['./workout-form.component.css'],
