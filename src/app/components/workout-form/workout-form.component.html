@@ -1,31 +1,34 @@
-<div class="p-4 border rounded-lg bg-white shadow-md">
-  <h2 class="text-lg font-semibold mb-2">Add Workout</h2>
+<div class="glassmorphism p-6 rounded-xl shadow-lg max-w-md w-full">
+  <h2 class="text-xl font-semibold text-white mb-4">Add Workout</h2>
 
-  <label class="block mb-1">User Name:</label>
+  <label class="block text-white mb-1">User Name:</label>
   <input
     type="text"
     [(ngModel)]="userName"
-    class="w-full p-2 border rounded"
+    class="w-full p-2 rounded bg-white/20 text-white placeholder-white focus:ring-2 focus:ring-blue-400"
     placeholder="Enter name"
   />
 
-  <label class="block mt-2 mb-1">Workout Type:</label>
-  <select [(ngModel)]="workoutType" class="w-full p-2 border rounded">
+  <label class="block text-white mt-3 mb-1">Workout Type:</label>
+  <select
+    [(ngModel)]="workoutType"
+    class="w-full p-2 rounded bg-white/20 text-white"
+  >
     <option value="" disabled>Select a workout</option>
     <option *ngFor="let type of workoutTypes" [value]="type">{{ type }}</option>
   </select>
 
-  <label class="block mt-2 mb-1">Workout Minutes:</label>
+  <label class="block text-white mt-3 mb-1">Workout Minutes:</label>
   <input
     type="number"
     [(ngModel)]="workoutMinutes"
-    class="w-full p-2 border rounded"
+    class="w-full p-2 rounded bg-white/20 text-white placeholder-white focus:ring-2 focus:ring-blue-400"
     placeholder="Minutes"
   />
 
   <button
     (click)="addWorkout()"
-    class="mt-4 w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
+    class="mt-4 w-full bg-blue-500 text-white py-2 rounded-xl hover:bg-blue-600 transition duration-300"
   >
     Add Workout
   </button>
