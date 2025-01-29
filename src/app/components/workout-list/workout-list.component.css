@@ -1,4 +1,19 @@
-table {
-  border-radius: 8px;
-  overflow: hidden;
+/* Define the sliding animation */
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  80% {
+    opacity: 1;
+    transform: translateX(20%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in {
+  animation: slideIn 0.7s ease-in-out forwards;
 }
