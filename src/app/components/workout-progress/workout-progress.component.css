@@ -1,3 +1,7 @@
 .workout-progress-container {
   @apply p-8 md:p-8  md:w-[80%] xl:p-32  mx-auto rounded flex flex-col  justify-center;
 }
+
+.user-table {
+  @apply w-1/2;
+}
