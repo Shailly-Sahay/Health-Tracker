@@ -1,27 +1,3 @@
-@keyframes gradientMove {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-.bg-gradient {
-  background: linear-gradient(
-    -45deg,
-    #3b83f6b6,
-    #06b6d4b6,
-    #10b981b6,
-    #a855f7b6
-  ); /* Blue → Cyan → Green → Purple */
-  background-size: 300% 300%;
-  animation: gradientMove 15s ease infinite;
-}
-
 .workout-form-container {
   @apply bg-white/10 p-12 rounded shadow-lg w-full md:w-1/2 xl:w-[40%] mx-auto border-none;
 }

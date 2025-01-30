@@ -29,6 +29,7 @@ html {
 
 body {
   color: var(--light-text-color);
+  font-size: var(--font-body);
 }
 
 h1 {

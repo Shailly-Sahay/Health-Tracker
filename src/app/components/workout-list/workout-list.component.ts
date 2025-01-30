@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WorkoutService } from '../../services/workout.service';
-import { TooltipModule } from 'primeng/tooltip';
+
 import { TableModule } from 'primeng/table';
-import { DockModule } from 'primeng/dock';
+import { Table } from 'primeng/table';
 
 interface Workout {
   userName: string;
@@ -13,7 +13,7 @@ interface Workout {
 }
 @Component({
   selector: 'app-workout-list',
-  imports: [CommonModule, DockModule, TooltipModule, TableModule],
+  imports: [CommonModule, TableModule],
   templateUrl: './workout-list.component.html',
   styleUrls: ['./workout-list.component.css'],
 })
@@ -25,6 +25,13 @@ export class WorkoutListComponent implements OnInit {
     { label: 'View', icon: 'pi pi-eye' },
   ];
   position: any = 'left';
+
+  @ViewChild('dt') dt: Table | undefined;
+
+  applyFilterGlobal(event: Event, matchMode: string) {
+    const inputElement = event.target as HTMLInputElement;
+    this.dt?.filterGlobal(inputElement.value, matchMode);
+  }
 
   constructor(private workoutService: WorkoutService) {}
 
