@@ -2,7 +2,12 @@
 module.exports = {
   content: ["./src/**/*.{html,ts}"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        muted: "var(--muted-text-color)",
+      },
+    },
   },
+
   plugins: [require("tailwindcss-primeui")],
 };

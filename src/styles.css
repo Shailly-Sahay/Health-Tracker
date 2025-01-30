@@ -2,18 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+/* @import "~ionicons/dist/css/ionicons.min.css"; */
+
 :root {
-  --primary-color: #3b82f6; /* Vibrant Healthcare Blue */
-  --secondary-color: #10b981; /* Fresh Green */
+  --primary-color: #f48982; /* Coral Pink */
+  --secondary-color: #fbdb89; /* Light Yellow */
   --accent-color: #06b6d4; /* Teal Blue */
-  --dark-bg: #171717;
-  --background-color: #f3f4f6; /* Soft Gray Background */
+
+  --background-color: #f9f5f3; /* Soft Gray Background */
+
   --light-text-color: #f9fafb; /* White Text */
-  --dark-text-color: #1f2937; /* Dark Gray Text */
-  --border-color: #d1d5db; /* Light Gray Border */
-  --error-color: #ef4444; /* Red for Alerts */
-  --warning-color: #f59e0b; /* Yellow for Warnings */
-  --success-color: #22c55e; /* Green for Success */
+  --dark-text-color: #615551; /* Dark Gray Text */
+
+  --muted-text-color: #9ca3af; /* Light Gray Text */
+
   --white: #ffffff;
   --black: #000000;
 
@@ -21,6 +23,7 @@
   --font-h2: 3.2rem; /* 32px */
   --font-h3: 2.4rem; /* 24px */
   --font-body: 1.6rem;
+  --font-small: 1.4rem;
 }
 
 html {
@@ -28,7 +31,7 @@ html {
 }
 
 body {
-  color: var(--light-text-color);
+  color: var(--dark-text-color);
   font-size: var(--font-body);
 }
 
@@ -47,9 +50,13 @@ h3 {
   font-weight: 500;
 }
 
-p,
-label {
+p {
   font-size: var(--font-body);
+}
+
+label,
+button {
+  font-size: var(--font-small) font-normal;
 }
 
 .dark-bg {

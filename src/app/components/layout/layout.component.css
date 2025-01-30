@@ -1,13 +1,17 @@
 .layout-container {
-  @apply flex items-center justify-center min-h-screen;
+  @apply flex items-center justify-center min-h-screen bg-gradient-to-br from-[var(--secondary-color)] to-[var(--primary-color)];
+}
+
+app-workout-form {
+  height: 100%;
 }
 
 .app-container {
-  @apply bg-white/5 h-[80vh]  md:w-[80%] xl:p-32  mx-auto rounded flex flex-col  justify-center relative;
+  @apply rounded-2xl h-[80vh]  w-[80%] overflow-hidden  mx-auto  flex flex-col  justify-center relative bg-white/10 backdrop-blur-lg shadow-lg relative;
 }
 
 .menu {
-  @apply absolute left-2 top-1/2 -translate-y-1/2 bg-gray-800 bg-opacity-90 p-2 rounded-lg;
+  @apply absolute left-2 top-1/2 -translate-y-1/2 bg-gray-800 bg-opacity-90 p-2 rounded-lg  z-10;
   background-color: rgba(50, 50, 50, 0.9);
 }
 

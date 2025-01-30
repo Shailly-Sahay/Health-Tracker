@@ -1,19 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgxStarrySkyComponent } from '@omnedia/ngx-starry-sky';
-import { DockModule } from 'primeng/dock';
+import { IconField } from 'primeng/iconfield';
 
 @Component({
   selector: 'app-layout',
-  imports: [CommonModule, NgxStarrySkyComponent, DockModule],
+  imports: [CommonModule],
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.css'],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class LayoutComponent {
-  position: any = 'left';
+  isCollapsed = false;
   items: any[] = [
-    { label: 'Home', icon: 'pi pi-home', href: '/' },
-    { label: 'Workouts', icon: 'pi pi-calendar', href: '/workouts' },
-    { label: 'Progress', icon: 'pi pi-cog', href: '/workout-progress' },
+    { label: 'Home', icon: 'home-outline' },
+    { label: 'Profile', icon: 'person-circle-outline' },
+    { label: 'Settings', icon: 'settings-outline' },
   ];
+
+  toggleMenu() {
+    this.isCollapsed = !this.isCollapsed;
+  }
 }

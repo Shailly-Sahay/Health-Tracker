@@ -1,22 +1,36 @@
-<om-starry-sky skyColor="rgb(0,0,0/1)">
-  <div class="layout-container">
-    <div class="app-container w-full relative">
-      <div class="menu">
-        <div *ngFor="let item of items" class="menu-item">
-          <a href="{{ item.href }}">
-            <img
-              [title]="item.label"
-              href="item.href"
-              tooltipPosition="top"
-              [alt]="item.label"
-              width="100%"
-            />
-            <span class="dock-label">{{ item.label }}</span>
-          </a>
-        </div>
-      </div>
+<div class="layout-container">
+  <div class="app-container w-full relative flex">
+    <!-- Sidebar Menu -->
+    <div
+      class="menu transition-all duration-300 ease-in-out"
+      [ngClass]="{ 'w-16': isCollapsed, 'w-48': !isCollapsed }"
+    >
+      <button
+        class="p-2 bg-gray-200 hover:bg-gray-300 rounded-full m-2"
+        (click)="toggleMenu()"
+      >
+        ⏪
+      </button>
 
+      <div
+        *ngFor="let item of items"
+        class="menu-item flex items-center gap-2 p-2"
+      >
+        <a href="{{ item.href }}" class="flex items-center">
+          <ion-icon [name]="item.icon"></ion-icon>
+          <span
+            class="dock-label transition-all duration-300"
+            *ngIf="!isCollapsed"
+          >
+            {{ item.label }}
+          </span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1">
       <ng-content></ng-content>
     </div>
   </div>
-</om-starry-sky>
+</div>
