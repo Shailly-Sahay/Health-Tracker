@@ -7,6 +7,11 @@ export interface Workout {
   minutes: number;
 }
 
+interface UserWorkoutSummary {
+  userName: string;
+  workoutSummary: { [type: string]: number };
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -53,5 +58,25 @@ export class WorkoutService {
     this.workouts.push(workout);
     this.workoutsSubject.next(this.workouts);
     this.saveToLocalStorage();
+  }
+
+  getUserWorkoutSummaries(): UserWorkoutSummary[] {
+    const userWorkoutMap: { [userName: string]: UserWorkoutSummary } = {};
+
+    this.workouts.forEach((workout) => {
+      if (!userWorkoutMap[workout.userName]) {
+        userWorkoutMap[workout.userName] = {
+          userName: workout.userName,
+          workoutSummary: {},
+        };
+      }
+      if (!userWorkoutMap[workout.userName].workoutSummary[workout.type]) {
+        userWorkoutMap[workout.userName].workoutSummary[workout.type] = 0;
+      }
+      userWorkoutMap[workout.userName].workoutSummary[workout.type] +=
+        workout.minutes;
+    });
+
+    return Object.values(userWorkoutMap);
   }
 }

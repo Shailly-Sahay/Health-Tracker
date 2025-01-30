@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { LayoutComponent } from './components/layout/layout.component';
 import { WorkoutFormComponent } from './components/workout-form/workout-form.component';
 import { WorkoutListComponent } from './components/workout-list/workout-list.component';
+import { WorkoutProgressComponent } from './components/workout-progress/workout-progress.component';
 import { RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-root',
@@ -9,6 +10,7 @@ import { RouterOutlet } from '@angular/router';
     LayoutComponent,
     WorkoutFormComponent,
     WorkoutListComponent,
+    WorkoutProgressComponent,
     RouterOutlet,
   ],
   templateUrl: './app.component.html',

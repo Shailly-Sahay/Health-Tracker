@@ -1,0 +1,27 @@
+<div class="workout-progress-container">
+  <div class="user-table">
+    <h3>Select a User</h3>
+    <p-table
+      [value]="userWorkoutSummaries"
+      selectionMode="single"
+      [(selection)]="selectedUser"
+      (onRowSelect)="selectUser($event.data)"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th>User Name</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-user>
+        <tr>
+          <td>{{ user.userName }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+  <div class="workout-chart" *ngIf="chartData">
+    <h3>Workout Summary for {{ selectedUser?.userName }}</h3>
+    <p-chart type="bar" [data]="chartData" [options]="chartOptions"></p-chart>
+  </div>
+</div>

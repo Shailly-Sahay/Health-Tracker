@@ -1,17 +1,20 @@
 <om-starry-sky skyColor="rgb(0,0,0/1)">
   <div class="layout-container">
-    <div>
-      <p-dock [model]="items" [position]="position">
-        <ng-template #item let-item>
-          <img
-            [title]="item.label"
-            tooltipPosition="top"
-            [src]="item.icon"
-            [alt]="item.label"
-            width="100%"
-          />
-        </ng-template>
-      </p-dock>
+    <div class="app-container w-full relative">
+      <div class="menu">
+        <div *ngFor="let item of items" class="menu-item">
+          <a href="{{ item.href }}">
+            <img
+              [title]="item.label"
+              href="item.href"
+              tooltipPosition="top"
+              [alt]="item.label"
+              width="100%"
+            />
+            <span class="dock-label">{{ item.label }}</span>
+          </a>
+        </div>
+      </div>
 
       <ng-content></ng-content>
     </div>

@@ -12,8 +12,8 @@ import { DockModule } from 'primeng/dock';
 export class LayoutComponent {
   position: any = 'left';
   items: any[] = [
-    { label: 'Home', icon: 'pi pi-home' },
-    { label: 'Workouts', icon: 'pi pi-calendar' },
-    { label: 'Settings', icon: 'pi pi-cog' },
+    { label: 'Home', icon: 'pi pi-home', href: '/' },
+    { label: 'Workouts', icon: 'pi pi-calendar', href: '/workouts' },
+    { label: 'Progress', icon: 'pi pi-cog', href: '/workout-progress' },
   ];
 }

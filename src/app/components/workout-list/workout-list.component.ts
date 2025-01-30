@@ -2,8 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WorkoutService } from '../../services/workout.service';
 
-import { TableModule } from 'primeng/table';
-import { Table } from 'primeng/table';
+import { TableModule, Table } from 'primeng/table';
 
 interface Workout {
   userName: string;

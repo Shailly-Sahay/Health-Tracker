@@ -1,26 +1,30 @@
-@keyframes gradientMove {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-.bg-gradient {
-  background: linear-gradient(
-    -45deg,
-    #3b82f6,
-    #06b6d4,
-    #10b981,
-    #a855f7
-  ); /* Blue → Cyan → Green → Purple */
-  background-size: 300% 300%;
-  animation: gradientMove 10s ease infinite;
-}
 .layout-container {
   @apply flex items-center justify-center min-h-screen;
+}
+
+.app-container {
+  @apply bg-white/5 h-[80vh]  md:w-[80%] xl:p-32  mx-auto rounded flex flex-col  justify-center relative;
+}
+
+.menu {
+  @apply absolute left-2 top-1/2 -translate-y-1/2 bg-gray-800 bg-opacity-90 p-2 rounded-lg;
+  background-color: rgba(50, 50, 50, 0.9);
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  color: white;
+}
+
+.menu-icon {
+  margin-right: 8px;
+}
+
+.menu-item:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
 }
