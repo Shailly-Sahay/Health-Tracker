@@ -1,13 +1,33 @@
-.glassmorphism {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.bg-gradient {
+  background: linear-gradient(
+    -45deg,
+    #3b83f6b6,
+    #06b6d4b6,
+    #10b981b6,
+    #a855f7b6
+  ); /* Blue → Cyan → Green → Purple */
+  background-size: 300% 300%;
+  animation: gradientMove 15s ease infinite;
+}
+
+.workout-form-container {
+  @apply bg-white/10 p-12 rounded shadow-lg w-full md:w-1/2 xl:w-[40%] mx-auto border-none;
 }
 
 .input-box {
-  @apply w-full p-2 rounded bg-white/20 text-white placeholder-white focus:ring-2 focus:ring-blue-400;
+  @apply bg-[#0003] w-full py-8 px-12 rounded  text-white placeholder-white focus:ring-2 focus:ring-blue-400;
 }
 
 p-floatlabel label,

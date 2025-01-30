@@ -6,8 +6,11 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { SelectModule } from 'primeng/select';
 import { ButtonModule } from 'primeng/button';
+import { WorkoutService, Workout } from '../../services/workout.service';
+
 @Component({
   selector: 'app-workout-form',
+  standalone: true,
   imports: [
     FormsModule,
     CommonModule,
@@ -29,22 +32,26 @@ export class WorkoutFormComponent {
 
   workoutTypes = ['Running', 'Cycling', 'Swimming', 'Yoga', 'Gym'];
 
+  constructor(private workoutService: WorkoutService) {} //  Inject WorkoutService
+
   addWorkout() {
     if (!this.userName || !this.workoutType || !this.workoutMinutes) {
       alert('Please fill all fields!');
       return;
     }
 
-    // Save workout data in localStorage (temporary storage)
-    const workouts = JSON.parse(localStorage.getItem('workouts') || '[]');
-    workouts.push({
-      name: this.userName,
+    const newWorkout: Workout = {
+      username: this.userName,
       type: this.workoutType,
       minutes: this.workoutMinutes,
-    });
-    localStorage.setItem('workouts', JSON.stringify(workouts));
+    };
 
-    // Emit event to switch to workout list
-    this.workoutAdded.emit();
+    this.workoutService.addWorkout(newWorkout); //  Add workout to the service
+    this.workoutAdded.emit(); //  Notify parent component
+
+    // Reset form fields
+    this.userName = '';
+    this.workoutType = '';
+    this.workoutMinutes = null;
   }
 }

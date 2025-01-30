@@ -1,11 +1,7 @@
 <app-layout>
-  <div class="w-full max-w-2xl p-6">
-    <ng-container *ngIf="!showTable">
-      <app-workout-form (workoutAdded)="toggleView()"></app-workout-form>
-    </ng-container>
-
-    <ng-container *ngIf="showTable">
-      <app-workout-list></app-workout-list>
+  <div class="p-6 flex-grow">
+    <ng-container>
+      <app-workout-form></app-workout-form>
     </ng-container>
   </div>
 </app-layout>

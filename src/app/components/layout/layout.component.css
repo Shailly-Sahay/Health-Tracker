@@ -22,5 +22,5 @@
   animation: gradientMove 10s ease infinite;
 }
 .layout-container {
-  @apply flex items-center justify-center min-h-screen bg-gradient;
+  @apply flex items-center justify-center min-h-screen;
 }
