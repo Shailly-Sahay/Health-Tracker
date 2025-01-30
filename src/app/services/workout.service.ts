@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 export interface Workout {
-  username: string;
+  userName: string;
   type: string;
   minutes: number;
 }
@@ -15,9 +15,9 @@ export class WorkoutService {
 
   // Initialize with predefined workouts
   private workouts: Workout[] = [
-    { username: 'Alice', type: 'Running', minutes: 30 },
-    { username: 'Bob', type: 'Cycling', minutes: 45 },
-    { username: 'Charlie', type: 'Swimming', minutes: 60 },
+    { userName: 'Alice', type: 'Running', minutes: 30 },
+    { userName: 'Bob', type: 'Cycling', minutes: 45 },
+    { userName: 'Charlie', type: 'Swimming', minutes: 60 },
   ];
 
   // BehaviorSubject to manage workout state
@@ -37,6 +37,10 @@ export class WorkoutService {
     } else {
       this.saveToLocalStorage();
     }
+  }
+
+  getWorkouts(): Workout[] {
+    return this.workouts;
   }
 
   // Save workouts to localStorage

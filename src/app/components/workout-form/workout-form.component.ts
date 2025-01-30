@@ -7,6 +7,7 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { SelectModule } from 'primeng/select';
 import { ButtonModule } from 'primeng/button';
 import { WorkoutService, Workout } from '../../services/workout.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-workout-form',
@@ -32,7 +33,7 @@ export class WorkoutFormComponent {
 
   workoutTypes = ['Running', 'Cycling', 'Swimming', 'Yoga', 'Gym'];
 
-  constructor(private workoutService: WorkoutService) {} //  Inject WorkoutService
+  constructor(private workoutService: WorkoutService, private router: Router) {}
 
   addWorkout() {
     if (!this.userName || !this.workoutType || !this.workoutMinutes) {
@@ -41,7 +42,7 @@ export class WorkoutFormComponent {
     }
 
     const newWorkout: Workout = {
-      username: this.userName,
+      userName: this.userName,
       type: this.workoutType,
       minutes: this.workoutMinutes,
     };
@@ -53,5 +54,8 @@ export class WorkoutFormComponent {
     this.userName = '';
     this.workoutType = '';
     this.workoutMinutes = null;
+
+    // Navigate to the /workouts route
+    this.router.navigate(['/workouts']);
   }
 }
