@@ -1,3 +1,51 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --primary-color: #3b82f6; /* Vibrant Healthcare Blue */
+  --secondary-color: #10b981; /* Fresh Green */
+  --accent-color: #06b6d4; /* Teal Blue */
+  --background-color: #f3f4f6; /* Soft Gray Background */
+  --light-text-color: #f9fafb; /* White Text */
+  --dark-text-color: #1f2937; /* Dark Gray Text */
+  --border-color: #d1d5db; /* Light Gray Border */
+  --error-color: #ef4444; /* Red for Alerts */
+  --warning-color: #f59e0b; /* Yellow for Warnings */
+  --success-color: #22c55e; /* Green for Success */
+  --white: #ffffff;
+  --black: #000000;
+
+  --font-h1: 4rem; /* 40px */
+  --font-h2: 3.2rem; /* 32px */
+  --font-h3: 2.4rem; /* 24px */
+  --font-body: 1.6rem;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  color: var(--light-text-color);
+}
+
+h1 {
+  font-size: var(--font-h1);
+  font-weight: 700;
+}
+
+h2 {
+  font-size: var(--font-h2);
+  font-weight: 600;
+}
+
+h3 {
+  font-size: var(--font-h3);
+  font-weight: 500;
+}
+
+p,
+label {
+  font-size: var(--font-body);
+}

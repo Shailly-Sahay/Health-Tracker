@@ -5,3 +5,16 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
+
+.input-box {
+  @apply w-full p-2 rounded bg-white/20 text-white placeholder-white focus:ring-2 focus:ring-blue-400;
+}
+
+p-floatlabel label,
+.input-label {
+  @apply text-[var(--light-text-color)];
+}
+
+p-select {
+  @apply p-0;
+}

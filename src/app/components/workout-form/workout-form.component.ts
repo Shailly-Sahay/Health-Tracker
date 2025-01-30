@@ -1,10 +1,22 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { SelectModule } from 'primeng/select';
+import { ButtonModule } from 'primeng/button';
 @Component({
   selector: 'app-workout-form',
-  imports: [FormsModule, CommonModule],
+  imports: [
+    FormsModule,
+    CommonModule,
+    FloatLabelModule,
+    InputGroupModule,
+    InputGroupAddonModule,
+    SelectModule,
+    ButtonModule,
+  ],
   templateUrl: './workout-form.component.html',
   styleUrls: ['./workout-form.component.css'],
 })

@@ -1,31 +1,64 @@
 <div class="glassmorphism p-6 rounded-xl shadow-lg max-w-md w-full">
-  <h2 class="text-xl font-semibold text-white mb-4">Add Workout</h2>
+  <h2 class="mb-4">Add Workout</h2>
 
-  <label class="block text-white mb-1">User Name:</label>
-  <input
-    type="text"
-    [(ngModel)]="userName"
-    class="w-full p-2 rounded bg-white/20 text-white placeholder-white focus:ring-2 focus:ring-blue-400"
-    placeholder="Enter name"
-  />
+  <div class="flex flex-col gap-4">
+    <p-inputgroup>
+      <p-inputgroup-addon>
+        <i class="pi pi-map input-icon"></i>
+      </p-inputgroup-addon>
+      <p-floatlabel class="input-label" variant="on">
+        <input
+          class="input-box"
+          pInputText
+          id="on_label"
+          [(ngModel)]="userName"
+        />
+        <label for="on_label">Name</label>
+      </p-floatlabel>
+    </p-inputgroup>
 
-  <label class="block text-white mt-3 mb-1">Workout Type:</label>
-  <select
-    [(ngModel)]="workoutType"
-    class="w-full p-2 rounded bg-white/20 text-white"
-  >
-    <option value="" disabled>Select a workout</option>
-    <option *ngFor="let type of workoutTypes" [value]="type">{{ type }}</option>
-  </select>
+    <div class="flex gap-4">
+      <p-inputgroup>
+        <p-inputgroup-addon>
+          <i class="pi pi-map"></i>
+        </p-inputgroup-addon>
 
-  <label class="block text-white mt-3 mb-1">Workout Minutes:</label>
-  <input
-    type="number"
-    [(ngModel)]="workoutMinutes"
-    class="w-full p-2 rounded bg-white/20 text-white placeholder-white focus:ring-2 focus:ring-blue-400"
-    placeholder="Minutes"
-  />
+        <p-floatlabel class="input-label" variant="on">
+          <p-select
+            [classList]="['input-box']"
+            [options]="workoutTypes"
+            [(ngModel)]="workoutType"
+            [checkmark]="true"
+            [showClear]="true"
+            class="w-full md:w-56"
+          />
+          <label for="on_label">Workout type</label>
+        </p-floatlabel>
+      </p-inputgroup>
 
+      <!-- <p-floatlabel variant="on">
+        <input
+          pInputText
+          id="on_label"
+          class="input-box"
+          [(ngModel)]="workoutType"
+          autocomplete="off"
+        />
+        <label for="on_label">Workout Type</label>
+      </p-floatlabel>
+
+      <p-floatlabel variant="on">
+        <input
+          pInputText
+          id="on_label"
+          class="input-box"
+          [(ngModel)]="workoutMinutes"
+          autocomplete="off"
+        />
+        <label for="on_label">Minutes</label>
+      </p-floatlabel> -->
+    </div>
+  </div>
   <button
     (click)="addWorkout()"
     class="mt-4 w-full bg-blue-500 text-white py-2 rounded-xl hover:bg-blue-600 transition duration-300"
