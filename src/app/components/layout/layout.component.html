@@ -16,7 +16,7 @@
         *ngFor="let item of items"
         class="menu-item flex items-center gap-2 p-2"
       >
-        <a href="{{ item.href }}" class="flex items-center">
+        <a [routerLink]="item.href" class="flex items-center">
           <ion-icon [name]="item.icon"></ion-icon>
           <span
             class="dock-label transition-all duration-300"

@@ -1,49 +1,58 @@
 <div class="workout-list-container">
-  <h2>View all the workouts</h2>
-  <div class="w-[70%] mx-auto">
-    <p-table
-      #dt
-      [value]="workouts"
-      [paginator]="true"
-      [rows]="5"
-      [rowsPerPageOptions]="[5, 10, 20]"
-      [globalFilterFields]="['userName', 'type']"
-    >
-      <ng-template pTemplate="header">
-        <tr>
-          <th>
-            Name
+  <div class="workout-form-container-imgBox">
+    <div class="workout-form-container-gradientBox"></div>
+    <div class="workout-form-container-img"></div>
+  </div>
 
-            <p-columnFilter
-              field="userName"
-              placeholder="Filter by Name"
-            ></p-columnFilter>
-          </th>
-          <th>
-            Type
-            <p-columnFilter
-              field="type"
-              placeholder="Filter by Type"
-            ></p-columnFilter>
-          </th>
-          <th pSortableColumn="minutes">
-            Minutes
-            <p-sortIcon field="minutes"></p-sortIcon>
-          </th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-workout>
-        <tr>
-          <td>{{ workout.userName }}</td>
-          <td>{{ workout.type }}</td>
-          <td>{{ workout.minutes }}</td>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="emptymessage">
-        <tr>
-          <td colspan="3">No workouts found.</td>
-        </tr>
-      </ng-template>
-    </p-table>
+  <div>
+    <
+    <h2 class="mb-6">View all the workouts</h2>
+    <div class="mx-auto">
+      <p-table
+        #dt
+        [value]="workouts"
+        [paginator]="true"
+        [rows]="5"
+        [rowsPerPageOptions]="[5, 10, 20]"
+        [globalFilterFields]="['userName', 'type']"
+        [tableStyle]="{ 'background-color': 'white' }"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th>
+              Name
+
+              <p-columnFilter
+                field="userName"
+                placeholder="Filter by Name"
+              ></p-columnFilter>
+            </th>
+            <th>
+              Type
+              <p-columnFilter
+                field="type"
+                placeholder="Filter by Type"
+              ></p-columnFilter>
+            </th>
+            <th pSortableColumn="minutes">
+              Minutes
+              <p-sortIcon field="minutes"></p-sortIcon>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-workout>
+          <tr>
+            <td>{{ workout.userName }}</td>
+            <td>{{ workout.type }}</td>
+            <td>{{ workout.minutes }}</td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="3">No workouts found.</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
   </div>
 </div>

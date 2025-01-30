@@ -1,23 +1,35 @@
-/* Define the sliding animation */
-@keyframes slideIn {
-  0% {
-    opacity: 0;
-    transform: translateX(-100%);
-  }
-  80% {
-    opacity: 1;
-    transform: translateX(20%);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
+:host {
+  @apply h-full;
 }
 
-.animate-slide-in {
-  animation: slideIn 0.7s ease-in-out forwards;
+.workout-list-container {
+  @apply flex h-full;
 }
 
-/* .workout-list-container {
-  @apply bg-white/10 h-[80vh] p-8 md:p-8  md:w-[80%] xl:p-32  mx-auto rounded flex flex-col  justify-center;
-} */
+.workout-form-container-imgBox {
+  @apply relative hidden md:block md:w-1/2;
+}
+
+.workout-form-container-img {
+  @apply bg-[url('/assets/img.jpg')] bg-center bg-cover bg-no-repeat h-full;
+}
+
+.workout-form-container-gradientBox {
+  @apply absolute inset-0 bg-gradient-to-b from-[var(--secondary-color)] to-[var(--primary-color)] opacity-40;
+}
+
+:host ::ng-deep p-datatable {
+  background: red;
+}
+
+::ng-deep .p-datatable {
+  @apply bg-white shadow-md rounded-lg;
+}
+
+::ng-deep .p-datatable-thead > tr {
+  @apply bg-gray-100 text-gray-700;
+}
+
+::ng-deep .p-datatable-tbody > tr {
+  @apply border-b hover:bg-gray-50;
+}
