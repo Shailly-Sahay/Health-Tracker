@@ -1,7 +1,15 @@
-.workout-progress-container {
-  @apply p-8 md:p-8  md:w-[80%] xl:p-32  mx-auto rounded flex flex-col  justify-center;
+:host {
+  @apply h-full;
 }
 
+.workout-progress-container {
+  @apply py-16 px-8 h-full;
+}
+/* 
 .user-table {
   @apply w-1/2;
+} */
+
+.workout-chart {
+  @apply flex-grow;
 }

@@ -3,11 +3,11 @@
 }
 
 .app-container {
-  @apply rounded-2xl h-[80vh]  w-[80%] overflow-hidden  mx-auto  flex flex-col  justify-center relative bg-white/10 backdrop-blur-lg shadow-lg relative bg-[var(--background-color)];
+  @apply rounded-2xl h-[80vh]  w-[80%] overflow-hidden  mx-auto  flex justify-center relative bg-white/10 backdrop-blur-lg shadow-lg relative bg-[var(--background-color)];
 }
 
 .menu {
-  @apply absolute left-2 top-1/2 -translate-y-1/2 bg-gray-800 bg-opacity-90 p-2 rounded-lg  z-10;
+  @apply absolute left-2 top-1/2 -translate-y-1/2 bg-gray-800 bg-opacity-90 p-2 rounded-lg  z-10 transition-all duration-300 ease-in-out;
   background-color: rgba(50, 50, 50, 0.9);
 }
 
@@ -27,4 +27,16 @@
 .menu-item:hover {
   background-color: rgba(255, 255, 255, 0.2);
   border-radius: 5px;
+}
+
+.imgBox {
+  @apply relative hidden md:block md:w-1/2;
+}
+
+.imgBox-img {
+  @apply bg-[url('/assets/img.jpg')] bg-center bg-cover bg-no-repeat h-full;
+}
+
+.img-gradientBox {
+  @apply absolute inset-0 bg-gradient-to-b from-[var(--secondary-color)] to-[var(--primary-color)] opacity-40;
 }

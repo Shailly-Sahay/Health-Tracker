@@ -3,33 +3,13 @@
 }
 
 .workout-list-container {
-  @apply flex h-full;
-}
-
-.workout-form-container-imgBox {
-  @apply relative hidden md:block md:w-1/2;
-}
-
-.workout-form-container-img {
-  @apply bg-[url('/assets/img.jpg')] bg-center bg-cover bg-no-repeat h-full;
-}
-
-.workout-form-container-gradientBox {
-  @apply absolute inset-0 bg-gradient-to-b from-[var(--secondary-color)] to-[var(--primary-color)] opacity-40;
+  @apply flex h-full py-16 px-8;
 }
 
 :host ::ng-deep p-datatable {
   background: red;
 }
 
-::ng-deep .p-datatable {
-  @apply bg-white shadow-md rounded-lg;
-}
-
-::ng-deep .p-datatable-thead > tr {
-  @apply bg-gray-100 text-gray-700;
-}
-
-::ng-deep .p-datatable-tbody > tr {
-  @apply border-b hover:bg-gray-50;
+p-columnFilter > input {
+  font-size: 155px;
 }

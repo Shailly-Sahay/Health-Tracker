@@ -32,6 +32,7 @@ export class WorkoutProgressComponent implements OnInit {
   selectedUser: UserWorkoutSummary | null = null;
   chartData: ChartData<'bar'> | null = null;
   chartOptions: ChartOptions<'bar'> = this.getChartOptions();
+  selectedSize: any = 'large';
 
   constructor(
     private workoutService: WorkoutService,

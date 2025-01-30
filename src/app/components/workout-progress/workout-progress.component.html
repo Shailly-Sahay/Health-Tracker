@@ -1,29 +1,40 @@
 <div class="workout-progress-container">
-  <div class="flex gap-12">
+  <div class="flex flex-col gap-16 justify-end h-full">
     <div class="user-table">
-      <h3>Select a User</h3>
+      <h3 class="mb-6">Select a User</h3>
       <p-table
         [value]="userWorkoutSummaries"
         selectionMode="single"
         [(selection)]="selectedUser"
         (onRowSelect)="selectUser($event.data)"
-        dataKey="userName"
+        [rows]="5"
+        [showCurrentPageReport]="true"
+        [paginator]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [size]="selectedSize"
+        [tableStyle]="{
+            width: '100%',
+            background: 'white',
+            borderRadius: '8px',
+            padding: '16px',
+            
+          }"
       >
         <ng-template pTemplate="header">
           <tr>
-            <th>User Name</th>
+            <th style="font-weight: 600; font-size: 16px">User Name</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-user>
           <tr [pSelectableRow]="user">
-            <td>{{ user.userName }}</td>
+            <td style="font-size: 14px">{{ user.userName }}</td>
           </tr>
         </ng-template>
       </p-table>
     </div>
 
     <div class="workout-chart" *ngIf="chartData">
-      <h3>Workout Summary for {{ selectedUser?.userName }}</h3>
+      <p>Workout Summary for {{ selectedUser?.userName }}</p>
 
       <p-chart
         type="bar"

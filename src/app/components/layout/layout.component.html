@@ -1,26 +1,26 @@
 <div class="layout-container">
-  <div class="app-container w-full relative flex">
+  <div class="app-container">
+    <!-- Image -->
+    <div class="imgBox">
+      <div class="img-gradientBox"></div>
+      <div class="imgBox-img"></div>
+    </div>
+
     <!-- Sidebar Menu -->
-    <div
-      class="menu transition-all duration-300 ease-in-out"
-      [ngClass]="{ 'w-16': isCollapsed, 'w-48': !isCollapsed }"
-    >
-      <button
-        class="p-2 bg-gray-200 hover:bg-gray-300 rounded-full m-2"
-        (click)="toggleMenu()"
-      >
-        ⏪
+    <div class="menu" [ngClass]="{ 'w-16': isCollapsed, 'w-48': !isCollapsed }">
+      <button class="text-white" (click)="toggleMenu()">
+        {{ isCollapsed ? ">" : "<" }}
       </button>
 
-      <div
-        *ngFor="let item of items"
-        class="menu-item flex items-center gap-2 p-2"
-      >
-        <a [routerLink]="item.href" class="flex items-center">
+      <div *ngFor="let item of items" class="">
+        <a
+          [routerLink]="item.href"
+          class="flex items-center menu-item flex items-center gap-2 p-2"
+        >
           <ion-icon [name]="item.icon"></ion-icon>
           <span
             class="dock-label transition-all duration-300"
-            *ngIf="!isCollapsed"
+            [ngClass]="{ 'opacity-0': isCollapsed }"
           >
             {{ item.label }}
           </span>

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WorkoutService } from '../../services/workout.service';
-
+import { PaginatorModule } from 'primeng/paginator';
 import { TableModule, Table } from 'primeng/table';
 
 interface Workout {
@@ -12,7 +12,7 @@ interface Workout {
 }
 @Component({
   selector: 'app-workout-list',
-  imports: [CommonModule, TableModule],
+  imports: [CommonModule, TableModule, PaginatorModule],
   templateUrl: './workout-list.component.html',
   styleUrls: ['./workout-list.component.css'],
 })
@@ -23,7 +23,7 @@ export class WorkoutListComponent implements OnInit {
     { label: 'Edit', icon: 'pi pi-pencil' },
     { label: 'View', icon: 'pi pi-eye' },
   ];
-  position: any = 'left';
+  selectedSize: any = 'large';
 
   @ViewChild('dt') dt: Table | undefined;
 

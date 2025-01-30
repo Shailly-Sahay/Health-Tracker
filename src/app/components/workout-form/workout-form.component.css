@@ -6,18 +6,6 @@
   @apply flex h-full;
 }
 
-.workout-form-container-imgBox {
-  @apply relative hidden md:block md:w-1/2;
-}
-
-.workout-form-container-img {
-  @apply bg-[url('/assets/img.jpg')] bg-center bg-cover bg-no-repeat h-full;
-}
-
-.workout-form-container-gradientBox {
-  @apply absolute inset-0 bg-gradient-to-b from-[var(--secondary-color)] to-[var(--primary-color)] opacity-40;
-}
-
 .workout-form {
   @apply bg-[var(--background-color)] flex-grow p-16 flex flex-col justify-center;
 }
