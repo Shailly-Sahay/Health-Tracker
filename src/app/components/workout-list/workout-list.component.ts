@@ -5,7 +5,6 @@ import { PaginatorModule } from 'primeng/paginator';
 import { TableModule, Table } from 'primeng/table';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
-import { DropdownModule } from 'primeng/dropdown';
 interface Workout {
   userName: string;
   type: string[]; // Array of workout types
@@ -19,7 +18,6 @@ interface Workout {
     TableModule,
     PaginatorModule,
     IconFieldModule,
-    DropdownModule,
     InputIconModule,
   ],
   templateUrl: './workout-list.component.html',
@@ -27,17 +25,23 @@ interface Workout {
 })
 export class WorkoutListComponent implements OnInit {
   workouts: any[] = [];
+
+  items: any[] = [
+    { label: 'Delete', icon: 'pi pi-times' },
+    { label: 'Edit', icon: 'pi pi-pencil' },
+    { label: 'View', icon: 'pi pi-eye' },
+  ];
   selectedSize: any = 'large';
-  dt2: Table | undefined;
 
-  @ViewChild('dt2') dt: Table | undefined;
+  @ViewChild('dt') dt: Table | undefined;
 
-  onFilterInput(event: Event): void {
+  onFilterInput(event: Event, field: string): void {
     const target = event.target as HTMLInputElement;
     if (target) {
-      this.dt?.filterGlobal(target.value, 'contains');
+      this.dt?.filter(target.value.toLowerCase(), field, 'contains');
     }
   }
+
   applyFilterGlobal(event: Event, matchMode: string) {
     const inputElement = event.target as HTMLInputElement;
     this.dt?.filterGlobal(inputElement.value, matchMode);

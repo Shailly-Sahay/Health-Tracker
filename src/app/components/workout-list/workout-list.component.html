@@ -3,6 +3,7 @@
     <h2 class="mb-6">View all the Workouts</h2>
     <div class="mx-auto w-[32rem] sm:w-[52rem] md:w-[40rem] lg:w-auto">
       <p-table
+        #dt
         [value]="workouts"
         dataKey="id"
         [paginator]="true"
@@ -33,13 +34,19 @@
               "
             >
               User Name
-              <p-columnFilter
-                type="text"
-                field="userName"
-                placeholder="Search by name"
-                ariaLabel="Filter Name"
-                style="font-size: 14px"
-              ></p-columnFilter>
+              <p-iconfield iconPosition="left" class="ml-auto">
+                <input
+                  pInputText
+                  type="text"
+                  (input)="onFilterInput($event, 'userName')"
+                  placeholder="Search by name"
+                  style="
+                    font-size: 12px;
+                    border-bottom: 1px solid #a3a3a3a8;
+                    padding: 2px;
+                  "
+                />
+              </p-iconfield>
             </th>
 
             <th style="font-weight: 600; font-size: 16px; padding: 12px">
@@ -48,8 +55,13 @@
                 <input
                   pInputText
                   type="text"
-                  (input)="onFilterInput($event)"
+                  (input)="onFilterInput($event, 'type')"
                   placeholder="Search workout"
+                  style="
+                    font-size: 12px;
+                    border-bottom: 1px solid #a3a3a3a8;
+                    padding: 2px;
+                  "
                 />
               </p-iconfield>
             </th>
