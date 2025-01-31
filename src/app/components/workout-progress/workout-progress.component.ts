@@ -51,18 +51,17 @@ export class WorkoutProgressComponent implements OnInit {
       return;
     }
 
-    // ✅ Get all workouts for the selected user
-    const userWorkouts = this.workouts.filter(
-      (w) => w.userName === this.selectedUser
-    );
+    // ✅ Find the selected user
+    const user = this.workouts.find((w) => w.userName === this.selectedUser);
+    if (!user) {
+      this.chartData = null;
+      return;
+    }
 
-    // ✅ Extract workout types & minutes
+    // ✅ Aggregate minutes per workout type
     const workoutMap: { [type: string]: number } = {};
-    userWorkouts.forEach((workout) => {
-      workout.type.forEach((workoutType, index) => {
-        const minutes = workout.minutes[index] || 0; // Prevent undefined errors
-        workoutMap[workoutType] = (workoutMap[workoutType] || 0) + minutes;
-      });
+    user.workouts.forEach(({ type, minutes }) => {
+      workoutMap[type] = (workoutMap[type] || 0) + minutes;
     });
 
     const workoutTypes = Object.keys(workoutMap);

@@ -6,12 +6,12 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { SelectModule } from 'primeng/select';
 import { ButtonModule } from 'primeng/button';
-import { WorkoutService, Workout } from '../../services/workout.service';
+import { WorkoutService } from '../../services/workout.service';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-workout-form',
-
+  standalone: true,
   imports: [
     FormsModule,
     CommonModule,
@@ -41,22 +41,20 @@ export class WorkoutFormComponent {
       return;
     }
 
-    const newWorkout: Workout = {
-      userName: this.userName.trim(), // Ensure name is stored properly
-      type: [this.workoutType], // ✅ Wrap as an array
-      workoutNumber: 1, // Default to 1 (will be updated if user already exists)
-      minutes: [this.workoutMinutes], // Convert minutes to an array
-    };
-
-    this.workoutService.addWorkout(newWorkout); // Add/update the workout
+    // ✅ Add structured workout data
+    this.workoutService.addWorkout(
+      this.userName,
+      this.workoutType,
+      this.workoutMinutes
+    );
     this.workoutAdded.emit(); // Notify parent component
 
-    // Reset form fields
+    // ✅ Reset form fields
     this.userName = '';
-    this.workoutType = ''; // ✅ Reset as empty string, not an array
+    this.workoutType = '';
     this.workoutMinutes = null;
 
-    // Navigate to the /workouts route
+    // ✅ Navigate to the /workouts route
     this.router.navigate(['/workouts']);
   }
 }
