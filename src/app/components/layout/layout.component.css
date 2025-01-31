@@ -7,7 +7,7 @@
 }
 
 .main-content-container {
-  @apply flex items-center w-full md:w-2/3 lg:w-auto;
+  @apply flex items-center w-full md:w-2/3 lg:w-1/2;
 }
 
 .img-container {

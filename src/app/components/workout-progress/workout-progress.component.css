@@ -5,11 +5,7 @@
 .workout-progress-container {
   @apply py-16 px-8 h-full;
 }
-/* 
-.user-table {
-  @apply w-1/2;
-} */
 
-.workout-chart {
-  /* @apply flex-grow; */
+.workout-progress-sub-container {
+  @apply flex flex-col gap-16 justify-between h-full mx-auto w-[30rem] sm:w-[48rem] md:w-[40rem] xl:w-[48rem] 2xl:w-[60rem] 3xl:w-[70rem];
 }
