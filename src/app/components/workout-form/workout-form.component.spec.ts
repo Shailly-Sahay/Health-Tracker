@@ -3,7 +3,6 @@ import { WorkoutFormComponent } from './workout-form.component';
 import { WorkoutService } from '../../services/workout.service';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { of } from 'rxjs';
 import { By } from '@angular/platform-browser';
 
 describe('WorkoutFormComponent', () => {
@@ -12,121 +11,105 @@ describe('WorkoutFormComponent', () => {
   let workoutService: jasmine.SpyObj<WorkoutService>;
   let router: jasmine.SpyObj<Router>;
 
+  // ✅ Define a test user
+  const testUser = {
+    userName: 'Shailly',
+    workoutType: 'Swimming',
+    workoutMinutes: 45,
+  };
+
   beforeEach(async () => {
-    // Mock WorkoutService
-    const workoutServiceMock = jasmine.createSpyObj('WorkoutService', [
-      'addWorkout',
-      'getWorkouts',
-    ]);
-    workoutServiceMock.addWorkout.and.stub(); // Prevents real method execution
-    workoutServiceMock.getWorkouts.and.returnValue(of([]));
+    workoutService = jasmine.createSpyObj('WorkoutService', ['addWorkout']);
+    router = jasmine.createSpyObj('Router', ['navigate']);
 
-    // Mock Router
-    const routerMock = jasmine.createSpyObj('Router', ['navigate']);
-
-    // Configure TestBed with proper imports (since it's a standalone component)
     await TestBed.configureTestingModule({
       imports: [WorkoutFormComponent, FormsModule],
       providers: [
-        { provide: WorkoutService, useValue: workoutServiceMock },
-        { provide: Router, useValue: routerMock },
+        { provide: WorkoutService, useValue: workoutService },
+        { provide: Router, useValue: router },
       ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(WorkoutFormComponent);
     component = fixture.componentInstance;
-    workoutService = TestBed.inject(
-      WorkoutService
-    ) as jasmine.SpyObj<WorkoutService>;
-    router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
-
-    fixture.detectChanges(); // Trigger initial component lifecycle
+    fixture.detectChanges();
   });
 
-  // Check if the component initializes correctly
-  it('should create the workout form component', () => {
+  it('should create the component', () => {
     expect(component).toBeTruthy();
   });
 
-  // Ensure form submission is blocked if fields are empty
-  it('should not submit the form if any field is empty', () => {
+  it('should not submit if any field is empty', () => {
     spyOn(window, 'alert');
-
-    component.addWorkout(); // Attempt to submit
-
+    component.addWorkout();
     expect(window.alert).toHaveBeenCalledWith('Please fill all fields!');
-    expect(workoutService.addWorkout).not.toHaveBeenCalled(); // No API call should be made
+    expect(workoutService.addWorkout).not.toHaveBeenCalled();
   });
 
-  // Ensure form submission calls `addWorkout()` and emits an event
-  it('should call addWorkout and emit an event when form is submitted', () => {
+  it('should submit form and call addWorkout', async () => {
     spyOn(component.workoutAdded, 'emit');
 
-    // Simulate user input
-    component.userName = 'Alice';
-    component.workoutType = 'Running';
-    component.workoutMinutes = 30;
+    await fillForm(testUser);
 
-    component.addWorkout(); // Submit the form
+    // ✅ Manually call `addWorkout()` to ensure it's executed
+    component.addWorkout();
+    fixture.detectChanges();
+    await fixture.whenStable();
 
-    // Check that the service method was called with the correct data
     expect(workoutService.addWorkout).toHaveBeenCalledWith({
-      userName: 'Alice',
-      type: ['Running'], // Converted to an array
+      userName: testUser.userName,
+      type: [testUser.workoutType],
       workoutNumber: 1,
-      minutes: [30], // Converted to an array
+      minutes: [testUser.workoutMinutes],
     });
 
-    // Check that the event was emitted
     expect(component.workoutAdded.emit).toHaveBeenCalled();
-
-    // Ensure navigation happens
     expect(router.navigate).toHaveBeenCalledWith(['/workouts']);
   });
 
-  // Check if input fields correctly update component properties
-  it('should update component variables when form inputs change', () => {
-    // Find input elements
-    const nameInput = fixture.debugElement.query(
-      By.css('#userName')
-    ).nativeElement;
-    const typeSelect = fixture.debugElement.query(
-      By.css('#workoutType')
-    ).nativeElement;
-    const minutesInput = fixture.debugElement.query(
-      By.css('#workoutMinutes')
-    ).nativeElement;
+  it('should update form values on input', async () => {
+    await fillForm(testUser);
+    fixture.detectChanges();
+    await fixture.whenStable();
 
-    // Simulate user typing in inputs
-    nameInput.value = 'Bob';
-    nameInput.dispatchEvent(new Event('input'));
-
-    typeSelect.value = typeSelect.options[1].value; // Select first workout type
-    typeSelect.dispatchEvent(new Event('change'));
-
-    minutesInput.value = '45';
-    minutesInput.dispatchEvent(new Event('input'));
-
-    fixture.detectChanges(); // Update the component state
-
-    // Ensure values are updated correctly in the component
-    expect(component.userName).toBe('Bob');
-    expect(component.workoutType).toBe('Running'); // First option selected
-    expect(component.workoutMinutes).toBe(45);
+    expect(component.userName).toBe(testUser.userName);
+    expect(component.workoutType).toBe(testUser.workoutType);
+    expect(component.workoutMinutes).toBe(testUser.workoutMinutes);
   });
 
-  // Ensure form resets after submission
-  it('should reset form fields after submission', () => {
-    // Simulate a valid submission
-    component.userName = 'Alice';
-    component.workoutType = 'Cycling';
-    component.workoutMinutes = 40;
+  it('should reset form fields after submission', async () => {
+    await fillForm(testUser);
+    component.addWorkout();
+    fixture.detectChanges();
+    await fixture.whenStable();
 
-    component.addWorkout(); // Submit
-
-    // Ensure fields are reset after submission
     expect(component.userName).toBe('');
     expect(component.workoutType).toBe('');
-    expect(component.workoutMinutes).toBeNull(); // Should be `null`, not `0`
+    expect(component.workoutMinutes).toBeNull();
   });
+
+  async function fillForm({
+    userName,
+    workoutType,
+    workoutMinutes,
+  }: typeof testUser) {
+    updateInput('#userName', userName);
+    updateSelect('#workoutType', workoutType);
+    updateInput('#workoutMinutes', String(workoutMinutes));
+
+    fixture.detectChanges();
+    await fixture.whenStable(); // Ensure Angular updates bindings
+  }
+
+  function updateInput(selector: string, value: string) {
+    const input = fixture.debugElement.query(By.css(selector)).nativeElement;
+    input.value = value;
+    input.dispatchEvent(new Event('input')); // Ensure Angular detects the update
+  }
+
+  function updateSelect(selector: string, value: string) {
+    const select = fixture.debugElement.query(By.css(selector)).nativeElement;
+    select.value = value;
+    select.dispatchEvent(new Event('change')); // Ensure Angular detects the selection
+  }
 });
