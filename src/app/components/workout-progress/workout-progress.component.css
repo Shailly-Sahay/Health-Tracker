@@ -11,5 +11,5 @@
 } */
 
 .workout-chart {
-  @apply flex-grow;
+  /* @apply flex-grow; */
 }

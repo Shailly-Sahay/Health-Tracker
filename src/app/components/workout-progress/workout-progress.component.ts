@@ -1,24 +1,10 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { WorkoutService } from '../../services/workout.service';
+import { WorkoutService, Workout } from '../../services/workout.service';
 import { ChartData, ChartOptions } from 'chart.js';
 import { TableModule } from 'primeng/table';
 import { ChartModule } from 'primeng/chart';
 import { CommonModule } from '@angular/common';
-
-interface UserWorkoutSummary {
-  userName: string;
-  workoutSummary: { [type: string]: number };
-}
-
-const CHART_COLORS = [
-  '#42A5F5',
-  '#66BB6A',
-  '#FFA726',
-  '#AB47BC',
-  '#FF7043',
-  '#29B6F6',
-  '#8D6E63',
-];
+import { CHART_COLORS } from '../constants/chart-color';
 
 @Component({
   selector: 'app-workout-progress',
@@ -28,11 +14,13 @@ const CHART_COLORS = [
   styleUrls: ['./workout-progress.component.css'],
 })
 export class WorkoutProgressComponent implements OnInit {
-  userWorkoutSummaries: UserWorkoutSummary[] = [];
-  selectedUser: UserWorkoutSummary | null = null;
+  workouts: Workout[] = [];
+  users: string[] = [];
+  selectedUser: string | null = null;
   chartData: ChartData<'bar'> | null = null;
   chartOptions: ChartOptions<'bar'> = this.getChartOptions();
   selectedSize: any = 'large';
+  chartColors = CHART_COLORS;
 
   constructor(
     private workoutService: WorkoutService,
@@ -40,16 +28,19 @@ export class WorkoutProgressComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.userWorkoutSummaries = this.workoutService.getUserWorkoutSummaries();
+    this.workouts = this.workoutService.getWorkouts();
 
-    // Auto-select the first user if there are users available
-    if (this.userWorkoutSummaries.length > 0) {
-      this.selectedUser = this.userWorkoutSummaries[0];
-      this.updateChartData(); // Update the chart for the first user
+    // ✅ Extract unique users from the workout list
+    this.users = [...new Set(this.workouts.map((w) => w.userName))];
+
+    // ✅ Auto-select the first user if available
+    if (this.users.length > 0) {
+      this.selectedUser = this.users[0];
+      this.updateChartData();
     }
   }
 
-  selectUser(user: UserWorkoutSummary) {
+  selectUser(user: string) {
     this.selectedUser = user;
     this.updateChartData();
   }
@@ -60,23 +51,38 @@ export class WorkoutProgressComponent implements OnInit {
       return;
     }
 
-    const workoutTypes = Object.keys(this.selectedUser.workoutSummary);
-    const workoutValues = Object.values(this.selectedUser.workoutSummary);
+    // ✅ Get all workouts for the selected user
+    const userWorkouts = this.workouts.filter(
+      (w) => w.userName === this.selectedUser
+    );
 
+    // ✅ Extract workout types & minutes
+    const workoutMap: { [type: string]: number } = {};
+    userWorkouts.forEach((workout) => {
+      workout.type.forEach((workoutType, index) => {
+        const minutes = workout.minutes[index] || 0; // Prevent undefined errors
+        workoutMap[workoutType] = (workoutMap[workoutType] || 0) + minutes;
+      });
+    });
+
+    const workoutTypes = Object.keys(workoutMap);
+    const workoutValues = Object.values(workoutMap);
+
+    // ✅ Prepare chart data
     this.chartData = {
       labels: workoutTypes,
       datasets: [
         {
           label: 'Minutes Spent',
           data: workoutValues,
-          backgroundColor: CHART_COLORS.slice(0, workoutTypes.length),
-          borderColor: CHART_COLORS.slice(0, workoutTypes.length),
+          backgroundColor: this.chartColors.slice(0, workoutTypes.length),
+          borderColor: this.chartColors.slice(0, workoutTypes.length),
           borderWidth: 1,
         },
       ],
     };
 
-    this.cdr.detectChanges(); // Ensures UI updates properly
+    this.cdr.detectChanges(); // Ensure UI updates properly
   }
 
   private getChartOptions(): ChartOptions<'bar'> {

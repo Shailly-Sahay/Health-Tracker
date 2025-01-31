@@ -3,7 +3,9 @@
     <div class="user-table">
       <h3 class="mb-6">Select a User</h3>
       <p-table
-        [value]="userWorkoutSummaries"
+        [value]="users"
+        [scrollable]="true"
+        scrollHeight="400px"
         selectionMode="single"
         [(selection)]="selectedUser"
         (onRowSelect)="selectUser($event.data)"
@@ -13,12 +15,10 @@
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         [size]="selectedSize"
         [tableStyle]="{
-            width: '100%',
-            background: 'white',
-            borderRadius: '8px',
-            padding: '16px',
-            
-          }"
+          background: 'white',
+          borderRadius: '8px',
+          padding: '16px'
+        }"
       >
         <ng-template pTemplate="header">
           <tr>
@@ -27,21 +27,27 @@
         </ng-template>
         <ng-template pTemplate="body" let-user>
           <tr [pSelectableRow]="user">
-            <td style="font-size: 14px">{{ user.userName }}</td>
+            <td style="font-size: 14px">{{ user }}</td>
           </tr>
         </ng-template>
       </p-table>
     </div>
 
-    <div class="workout-chart" *ngIf="chartData">
-      <p>Workout Summary for {{ selectedUser?.userName }}</p>
+    <!-- ✅ Responsive Chart Container -->
+    <div class="workout-chart w-full max-w-4xl mx-auto">
+      <p class="text-center text-lg font-semibold mb-4">
+        Workout Summary for {{ selectedUser }}
+      </p>
 
-      <p-chart
-        type="bar"
-        [data]="chartData"
-        [options]="chartOptions"
-        style="width: 600px; height: 500px"
-      ></p-chart>
+      <!-- ✅ Make Chart Fully Responsive -->
+      <div class="w-full h-auto">
+        <p-chart
+          type="bar"
+          [data]="chartData"
+          [options]="chartOptions"
+          style="width: 100%; height: auto"
+        ></p-chart>
+      </div>
     </div>
   </div>
 </div>

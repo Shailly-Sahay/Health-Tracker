@@ -36,23 +36,24 @@ export class WorkoutFormComponent {
   constructor(private workoutService: WorkoutService, private router: Router) {}
 
   addWorkout() {
-    if (!this.userName || !this.workoutType || !this.workoutMinutes) {
+    if (!this.userName || !this.workoutType || this.workoutMinutes === null) {
       alert('Please fill all fields!');
       return;
     }
 
     const newWorkout: Workout = {
-      userName: this.userName,
-      type: this.workoutType,
-      minutes: this.workoutMinutes,
+      userName: this.userName.trim(), // Ensure name is stored properly
+      type: [this.workoutType], // ✅ Wrap as an array
+      workoutNumber: 1, // Default to 1 (will be updated if user already exists)
+      minutes: [this.workoutMinutes], // Convert minutes to an array
     };
 
-    this.workoutService.addWorkout(newWorkout); //  Add workout to the service
-    this.workoutAdded.emit(); //  Notify parent component
+    this.workoutService.addWorkout(newWorkout); // Add/update the workout
+    this.workoutAdded.emit(); // Notify parent component
 
     // Reset form fields
     this.userName = '';
-    this.workoutType = '';
+    this.workoutType = ''; // ✅ Reset as empty string, not an array
     this.workoutMinutes = null;
 
     // Navigate to the /workouts route

@@ -3,8 +3,9 @@ import { BehaviorSubject } from 'rxjs';
 
 export interface Workout {
   userName: string;
-  type: string;
-  minutes: number;
+  type: string[]; // Each workout has multiple types
+  workoutNumber: number;
+  minutes: number[]; // Each workout session has multiple durations
 }
 
 interface UserWorkoutSummary {
@@ -18,14 +19,27 @@ interface UserWorkoutSummary {
 export class WorkoutService {
   private readonly STORAGE_KEY = 'workouts';
 
-  // Initialize with predefined workouts
   private workouts: Workout[] = [
-    { userName: 'Alice', type: 'Running', minutes: 30 },
-    { userName: 'Bob', type: 'Cycling', minutes: 45 },
-    { userName: 'Charlie', type: 'Swimming', minutes: 60 },
+    {
+      userName: 'Alice',
+      type: ['Running', 'Yoga'],
+      workoutNumber: 2,
+      minutes: [30, 25],
+    },
+    {
+      userName: 'Bob',
+      type: ['Cycling', 'Gym', 'Swimming'],
+      workoutNumber: 3,
+      minutes: [45, 20, 22],
+    },
+    {
+      userName: 'Charlie',
+      type: ['Swimming'],
+      workoutNumber: 1,
+      minutes: [60],
+    },
   ];
 
-  // BehaviorSubject to manage workout state
   private workoutsSubject = new BehaviorSubject<Workout[]>(this.workouts);
   workouts$ = this.workoutsSubject.asObservable();
 
@@ -33,7 +47,6 @@ export class WorkoutService {
     this.loadFromLocalStorage();
   }
 
-  // Load workouts from localStorage if available
   private loadFromLocalStorage() {
     const storedWorkouts = localStorage.getItem(this.STORAGE_KEY);
     if (storedWorkouts) {
@@ -48,35 +61,45 @@ export class WorkoutService {
     return this.workouts;
   }
 
-  // Save workouts to localStorage
   private saveToLocalStorage() {
     localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.workouts));
   }
 
-  // Add a new workout
   addWorkout(workout: Workout) {
-    this.workouts.push(workout);
+    const existingWorkout = this.workouts.find(
+      (w) =>
+        w.userName.trim().toLowerCase() ===
+        workout.userName.trim().toLowerCase()
+    );
+
+    if (existingWorkout) {
+      // Ensure type is an array
+      if (!Array.isArray(existingWorkout.type)) {
+        existingWorkout.type = [existingWorkout.type];
+      }
+
+      // Add the new workout type only if it's not already present
+      const newWorkoutType = workout.type[0].trim();
+      if (newWorkoutType && !existingWorkout.type.includes(newWorkoutType)) {
+        existingWorkout.type.push(newWorkoutType);
+      }
+
+      // Increase the workout number
+      existingWorkout.workoutNumber += 1;
+
+      // Ensure minutes is an array before pushing
+      if (!Array.isArray(existingWorkout.minutes)) {
+        existingWorkout.minutes = [existingWorkout.minutes];
+      }
+
+      // Push new minutes value
+      existingWorkout.minutes.push(workout.minutes[0]);
+    } else {
+      // If user does not exist, add as a new entry
+      this.workouts.push(workout);
+    }
+
     this.workoutsSubject.next(this.workouts);
     this.saveToLocalStorage();
-  }
-
-  getUserWorkoutSummaries(): UserWorkoutSummary[] {
-    const userWorkoutMap: { [userName: string]: UserWorkoutSummary } = {};
-
-    this.workouts.forEach((workout) => {
-      if (!userWorkoutMap[workout.userName]) {
-        userWorkoutMap[workout.userName] = {
-          userName: workout.userName,
-          workoutSummary: {},
-        };
-      }
-      if (!userWorkoutMap[workout.userName].workoutSummary[workout.type]) {
-        userWorkoutMap[workout.userName].workoutSummary[workout.type] = 0;
-      }
-      userWorkoutMap[workout.userName].workoutSummary[workout.type] +=
-        workout.minutes;
-    });
-
-    return Object.values(userWorkoutMap);
   }
 }

@@ -1,31 +1,37 @@
-<div class="workout-list-container p-6 bg-gray-50 rounded-lg shadow-md">
-  <div class="flex-grow">
+<div class="workout-list-container p-6">
+  <div class="">
     <h2 class="mb-6">View all the Workouts</h2>
-    <div class="mx-auto">
+    <div class="mx-auto w-[32rem] sm:w-[52rem] md:w-[40rem] lg:w-auto">
       <p-table
-        #dt2
         [value]="workouts"
         dataKey="id"
         [paginator]="true"
         [rows]="5"
+        scrollable="true"
         [globalFilterFields]="['userName', 'type']"
         showGridlines
         [showCurrentPageReport]="true"
         [paginator]="true"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         [size]="selectedSize"
         [tableStyle]="{
-          width: '100%',
+       
           background: 'white',
-          borderRadius: '8px',
-          padding: '16px',
-          
+          minWidth: '20rem',
+       
+       
         }"
         class="shadow-md rounded-lg"
       >
         <ng-template #header>
           <tr>
-            <th style="font-weight: 600; font-size: 16px; padding: 12px">
+            <th
+              style="
+                min-width: 20%;
+                font-weight: 600;
+                font-size: 16px;
+                padding: 12px;
+              "
+            >
               User Name
               <p-columnFilter
                 type="text"
@@ -35,17 +41,23 @@
                 style="font-size: 14px"
               ></p-columnFilter>
             </th>
+
             <th style="font-weight: 600; font-size: 16px; padding: 12px">
-              Workout Type
-              <p-columnFilter
-                type="text"
-                field="type"
-                placeholder="Search by workout type"
-                ariaLabel="Filter Workout"
-              ></p-columnFilter>
+              Workout
+              <p-iconfield iconPosition="left" class="ml-auto">
+                <input
+                  pInputText
+                  type="text"
+                  (input)="onFilterInput($event)"
+                  placeholder="Search workout"
+                />
+              </p-iconfield>
             </th>
             <th style="font-weight: 600; font-size: 16px; padding: 12px">
-              Minutes
+              Number of workouts
+            </th>
+            <th style="font-weight: 600; font-size: 16px; padding: 12px">
+              Total Workout Minutes
             </th>
           </tr>
         </ng-template>
@@ -54,6 +66,7 @@
           <tr class="border-b hover:bg-gray-50 transition duration-200">
             <td class="p-4">{{ workout.userName }}</td>
             <td class="p-4">{{ workout.type }}</td>
+            <td class="p-4">{{ workout.workoutNumber }}</td>
             <td class="p-4">{{ workout.minutes }}</td>
           </tr>
         </ng-template>

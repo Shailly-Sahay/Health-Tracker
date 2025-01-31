@@ -1,15 +1,22 @@
 <div class="layout-container">
   <div class="app-container">
     <!-- Image -->
-    <div class="imgBox">
-      <div class="img-gradientBox"></div>
-      <div class="imgBox-img"></div>
+    <div class="img-container">
+      <div class="img-gradient-container"></div>
+      <div class="img-container-img"></div>
     </div>
 
     <!-- Sidebar Menu -->
-    <div class="menu" [ngClass]="{ 'w-16': isCollapsed, 'w-48': !isCollapsed }">
+    <div class="menu" [ngClass]="{ 'w-12': isCollapsed, 'w-48': !isCollapsed }">
       <button class="text-white" (click)="toggleMenu()">
-        {{ isCollapsed ? ">" : "<" }}
+        <img
+          *ngIf="isCollapsed; else backIcon"
+          src="assets/icons/next.svg"
+          alt="Next Icon"
+        />
+        <ng-template #backIcon>
+          <img src="assets/icons/back.svg" alt="Back Icon" />
+        </ng-template>
       </button>
 
       <div *ngFor="let item of items" class="">
@@ -29,7 +36,7 @@
     </div>
 
     <!-- Main Content -->
-    <div class="flex-1">
+    <div class="main-content-container">
       <ng-content></ng-content>
     </div>
   </div>

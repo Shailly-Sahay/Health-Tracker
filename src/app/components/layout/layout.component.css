@@ -3,7 +3,15 @@
 }
 
 .app-container {
-  @apply rounded-2xl h-[80vh]  w-[80%] overflow-hidden  mx-auto  flex justify-center relative bg-white/10 backdrop-blur-lg shadow-lg relative bg-[var(--background-color)];
+  @apply rounded-2xl h-[80vh] w-[80%] mx-auto overflow-hidden flex relative bg-white/10 backdrop-blur-lg shadow-lg relative bg-[var(--background-color)];
+}
+
+.main-content-container {
+  @apply flex items-center w-full md:w-2/3 lg:w-auto;
+}
+
+.img-container {
+  @apply relative hidden md:block md:w-1/2;
 }
 
 .menu {
@@ -29,14 +37,10 @@
   border-radius: 5px;
 }
 
-.imgBox {
-  @apply relative hidden md:block md:w-1/2;
-}
-
-.imgBox-img {
+.img-container-img {
   @apply bg-[url('/assets/img.jpg')] bg-center bg-cover bg-no-repeat h-full;
 }
 
-.img-gradientBox {
+.img-gradient-container {
   @apply absolute inset-0 bg-gradient-to-b from-[var(--secondary-color)] to-[var(--primary-color)] opacity-40;
 }
