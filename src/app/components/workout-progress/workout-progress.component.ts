@@ -19,7 +19,7 @@ export class WorkoutProgressComponent implements OnInit {
   selectedUser: string | null = null;
   chartData: ChartData<'bar'> | null = null;
   chartOptions: ChartOptions<'bar'> = this.getChartOptions();
-  selectedSize: any = 'large';
+  selectedSize: any = 'small';
   chartColors = CHART_COLORS;
 
   constructor(
