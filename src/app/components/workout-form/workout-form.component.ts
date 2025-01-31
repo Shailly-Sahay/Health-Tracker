@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-workout-form',
-  standalone: true,
+
   imports: [
     FormsModule,
     CommonModule,
