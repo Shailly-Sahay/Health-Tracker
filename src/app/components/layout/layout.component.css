@@ -20,12 +20,7 @@
 }
 
 .menu-item {
-  display: flex;
-  align-items: center;
-  padding: 8px;
-  margin-bottom: 5px;
-  cursor: pointer;
-  color: white;
+  @apply flex items-center p-4 mb-[5px] cursor-pointer text-white;
 }
 
 .menu-icon {

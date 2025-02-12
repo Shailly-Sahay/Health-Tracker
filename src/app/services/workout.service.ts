@@ -72,7 +72,13 @@ export class WorkoutService {
     localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.workouts));
   }
 
-  addWorkout(userName: string, workoutType: string, workoutMinutes: number) {
+  addWorkout(workoutData: {
+    userName: string;
+    workoutType: string;
+    workoutMinutes: number;
+  }) {
+    const { userName, workoutType, workoutMinutes } = workoutData; // ✅ Destructure the object
+
     const existingUser = this.workouts.find(
       (w) => w.userName.trim().toLowerCase() === userName.trim().toLowerCase()
     );

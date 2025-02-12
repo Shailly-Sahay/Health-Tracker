@@ -1,6 +1,10 @@
 <div class="workout-form-container">
-  <form class="workout-form" (submit)="addWorkout()">
-    <h2 class="mb-6">Hey! Add Your Workout</h2>
+  <form
+    class="workout-form"
+    [formGroup]="workoutForm"
+    (ngSubmit)="addWorkout()"
+  >
+    <h2 class="mb-6">{{ title }}</h2>
 
     <div class="flex flex-col gap-6">
       <!-- Name Input -->
@@ -8,12 +12,16 @@
         <label for="userName">Name</label>
         <input
           class="input-box"
-          id="userName"
-          [(ngModel)]="userName"
           name="userName"
           placeholder="Enter name"
+          formControlName="userName"
           required
         />
+        <span
+          class="error-text"
+          *ngIf="userName && userName.invalid && userName.touched"
+          >This field is required</span
+        >
       </div>
 
       <!-- Workout Type & Minutes -->
@@ -22,9 +30,8 @@
         <div class="w-full sm:w-1/2">
           <label for="workoutType"> Workout Type </label>
           <select
-            id="workoutType"
-            [(ngModel)]="workoutType"
             name="workoutType"
+            formControlName="workoutType"
             class="input-box"
             required
           >
@@ -35,6 +42,11 @@
               {{ type }}
             </option>
           </select>
+          <span
+            class="error-text"
+            *ngIf="workoutType && workoutType.invalid && workoutType.touched"
+            >his field is required</span
+          >
         </div>
 
         <!-- Minutes Input -->
@@ -42,19 +54,27 @@
           <label for="workoutMinutes">Minutes</label>
           <input
             class="input-box"
-            id="workoutMinutes"
-            [(ngModel)]="workoutMinutes"
             name="workoutMinutes"
             type="number"
+            formControlName="workoutMinutes"
             placeholder="Enter minutes"
             required
           />
+          <span
+            class="error-text"
+            *ngIf="
+              workoutMinutes && workoutMinutes.invalid && workoutMinutes.touched
+            "
+            >This field is required</span
+          >
         </div>
       </div>
 
       <!-- Submit Button -->
       <div class="flex justify-end">
-        <button type="submit">Add Workout</button>
+        <button [disabled]="workoutForm.invalid" type="submit">
+          Add Workout
+        </button>
       </div>
     </div>
   </form>

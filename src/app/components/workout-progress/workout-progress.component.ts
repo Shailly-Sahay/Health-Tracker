@@ -30,10 +30,8 @@ export class WorkoutProgressComponent implements OnInit {
   ngOnInit(): void {
     this.workouts = this.workoutService.getWorkouts();
 
-    // ✅ Extract unique users from the workout list
     this.users = [...new Set(this.workouts.map((w) => w.userName))];
 
-    // ✅ Auto-select the first user if available
     if (this.users.length > 0) {
       this.selectedUser = this.users[0];
       this.updateChartData();
@@ -51,14 +49,11 @@ export class WorkoutProgressComponent implements OnInit {
       return;
     }
 
-    // ✅ Find the selected user
     const user = this.workouts.find((w) => w.userName === this.selectedUser);
     if (!user) {
       this.chartData = null;
       return;
     }
-
-    // ✅ Aggregate minutes per workout type
     const workoutMap: { [type: string]: number } = {};
     user.workouts.forEach(({ type, minutes }) => {
       workoutMap[type] = (workoutMap[type] || 0) + minutes;
@@ -67,7 +62,7 @@ export class WorkoutProgressComponent implements OnInit {
     const workoutTypes = Object.keys(workoutMap);
     const workoutValues = Object.values(workoutMap);
 
-    // ✅ Prepare chart data
+    // Prepare chart data
     this.chartData = {
       labels: workoutTypes,
       datasets: [

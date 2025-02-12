@@ -18,6 +18,16 @@ button {
   @apply bg-gradient-to-br from-[var(--secondary-color)] to-[var(--primary-color)] rounded-full px-8 py-4 text-white;
 }
 
+button:disabled {
+  @apply opacity-60 cursor-not-allowed;
+}
+
 label {
   @apply text-[var(--font-small)];
+}
+
+.error-text {
+  color: red;
+  font-size: 14px;
+  margin-top: 4px;
 }

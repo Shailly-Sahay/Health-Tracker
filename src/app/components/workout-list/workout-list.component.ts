@@ -34,17 +34,17 @@ export class WorkoutListComponent implements OnInit {
   loadWorkouts() {
     this.workouts = this.workoutService.getWorkouts().map((workout) => ({
       userName: workout.userName,
-      // ✅ Properly formats workout types with counts if repeated
+      // Properly formats workout types with counts if repeated
       type: this.formatWorkoutTypes(workout.workouts),
-      // ✅ Counts the number of workout sessions
+      // Counts the number of workout sessions
       workoutNumber: workout.workouts.length,
-      // ✅ Sums total workout minutes
+      // Sums total workout minutes
       minutes:
         workout.workouts.reduce((sum, w) => sum + w.minutes, 0) + ' mins',
     }));
   }
 
-  // ✅ Helper function to format workout types with count
+  // Helper function to format workout types with count
   private formatWorkoutTypes(
     workouts: { type: string; minutes: number }[]
   ): string {
@@ -59,7 +59,7 @@ export class WorkoutListComponent implements OnInit {
       .join(', ');
   }
 
-  // ✅ Filters for username & workout type
+  // Filters for username & workout type
   onFilterInput(event: Event, field: string): void {
     const target = event.target as HTMLInputElement;
     if (target) {

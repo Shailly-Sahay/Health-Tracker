@@ -5,7 +5,3 @@
 .workout-list-container {
   @apply flex h-full py-16 px-8;
 }
-
-p-columnFilter > input {
-  font-size: 155px;
-}

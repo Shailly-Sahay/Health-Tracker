@@ -8,6 +8,12 @@ import { SelectModule } from 'primeng/select';
 import { ButtonModule } from 'primeng/button';
 import { WorkoutService } from '../../services/workout.service';
 import { Router } from '@angular/router';
+import {
+  FormControl,
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-workout-form',
@@ -20,41 +26,50 @@ import { Router } from '@angular/router';
     InputGroupAddonModule,
     SelectModule,
     ButtonModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './workout-form.component.html',
   styleUrls: ['./workout-form.component.css'],
 })
 export class WorkoutFormComponent {
-  @Output() workoutAdded = new EventEmitter<void>();
+  title = 'Hey! Add Your Workout';
+  workoutForm = new FormGroup({
+    userName: new FormControl('', [Validators.required]),
+    workoutType: new FormControl('', [Validators.required]),
+    workoutMinutes: new FormControl('', [Validators.required]),
+  });
 
-  userName: string = '';
-  workoutType: string = '';
-  workoutMinutes: number | null = null;
+  userName = this.workoutForm.get('userName');
+  workoutType = this.workoutForm.get('workoutType');
+  workoutMinutes = this.workoutForm.get('workoutMinutes');
+
+  @Output() workoutAdded = new EventEmitter<void>();
 
   workoutTypes = ['Running', 'Cycling', 'Swimming', 'Yoga', 'Gym'];
 
   constructor(private workoutService: WorkoutService, private router: Router) {}
 
   addWorkout() {
-    if (!this.userName || !this.workoutType || this.workoutMinutes === null) {
-      alert('Please fill all fields!');
+    if (this.workoutForm.invalid) {
+      this.workoutForm.markAllAsTouched(); // Show validation errors
       return;
     }
 
-    // ✅ Add structured workout data
-    this.workoutService.addWorkout(
-      this.userName,
-      this.workoutType,
-      this.workoutMinutes
-    );
-    this.workoutAdded.emit(); // Notify parent component
+    console.log('Submitting workout:', this.workoutForm.value); // ✅ Debugging (optional)
 
-    // ✅ Reset form fields
-    this.userName = '';
-    this.workoutType = '';
-    this.workoutMinutes = null;
+    // ✅ Submit entire object directly
+    const workoutData = {
+      userName: this.workoutForm.value.userName as string,
+      workoutType: this.workoutForm.value.workoutType as string,
+      workoutMinutes: Number(this.workoutForm.value.workoutMinutes),
+    };
+    this.workoutService.addWorkout(workoutData);
 
-    // ✅ Navigate to the /workouts route
+    this.workoutAdded.emit();
+
+    // ✅ Reset the form after submission
+    this.workoutForm.reset();
+
     this.router.navigate(['/workouts']);
   }
 }
