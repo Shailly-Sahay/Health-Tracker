@@ -1,95 +1,93 @@
 <div class="workout-list-container p-6">
-  <div
-    class="mx-auto w-[32rem] sm:w-[52rem] md:w-[40rem] lg:w-[40rem] xl:w-[52rem] 2xl:w-auto"
-  >
-    <h2 class="mb-6">View all the Workouts</h2>
-    <div class="">
-      <p-table
-        #dt
-        [value]="workouts"
-        dataKey="id"
-        [paginator]="true"
-        [rows]="5"
-        scrollable="true"
-        [globalFilterFields]="['userName', 'type']"
-        showGridlines
-        [showCurrentPageReport]="true"
-        [paginator]="true"
-        [size]="selectedSize"
-        [tableStyle]="{
+  <h2 class="mb-6">{{ title }}</h2>
+  <div class="flex flex-col gap-4 sm:flex-row justify-between mb-8">
+    <p-iconfield iconPosition="left">
+      <input
+        pInputText
+        type="text"
+        (input)="onFilterInput($event, 'userName')"
+        placeholder="Search by name"
+        class="input-box py-0"
+      />
+    </p-iconfield>
+
+    <p-iconfield iconPosition="right">
+      <select
+        name="workoutType"
+        formControlName="workoutType"
+        class="input-box"
+        placeholder="Search workout"
+        (change)="onFilterInput($event, 'type')"
+        required
+      >
+        <option
+          value=""
+          disabled
+          selected
+          class="text-[var(--dark-text-color)]"
+        >
+          Select a workout
+        </option>
+        <option *ngFor="let type of workoutTypes" [value]="type">
+          {{ type }}
+        </option>
+      </select>
+    </p-iconfield>
+  </div>
+
+  <div class="w-full">
+    <p-table
+      #dt
+      [value]="workouts"
+      dataKey="id"
+      [paginator]="true"
+      [rows]="5"
+      scrollable="true"
+      [globalFilterFields]="['userName', 'type']"
+      showGridlines
+      [showCurrentPageReport]="true"
+      [paginator]="true"
+      [size]="selectedSize"
+      [tableStyle]="{
        
           background: 'white',
           minWidth: '20rem',
        
        
         }"
-        class="shadow-md rounded-lg"
-      >
-        <ng-template #header>
-          <tr>
-            <th
-              style="
-                min-width: 20%;
-                font-weight: 600;
-                font-size: 16px;
-                padding: 12px;
-              "
-            >
-              User Name
-              <p-iconfield iconPosition="left" class="ml-auto">
-                <input
-                  pInputText
-                  type="text"
-                  (input)="onFilterInput($event, 'userName')"
-                  placeholder="Search by name"
-                  style="
-                    font-size: 12px;
-                    border-bottom: 1px solid #a3a3a3a8;
-                    padding: 2px;
-                  "
-                />
-              </p-iconfield>
-            </th>
+      class="shadow-md rounded-lg"
+    >
+      <ng-template #header>
+        <tr>
+          <th style="font-weight: 600; font-size: 16px; padding: 12px">
+            User Name
+          </th>
 
-            <th style="font-weight: 600; font-size: 16px; padding: 12px">
-              Workout
-              <p-iconfield iconPosition="left" class="ml-auto">
-                <input
-                  pInputText
-                  type="text"
-                  (input)="onFilterInput($event, 'type')"
-                  placeholder="Search workout"
-                  style="
-                    font-size: 12px;
-                    border-bottom: 1px solid #a3a3a3a8;
-                    padding: 2px;
-                  "
-                />
-              </p-iconfield>
-            </th>
-            <th style="font-weight: 600; font-size: 16px; padding: 12px">
-              Number of workouts
-            </th>
-            <th style="font-weight: 600; font-size: 16px; padding: 12px">
-              Total Workout Minutes
-            </th>
-          </tr>
-        </ng-template>
+          <th style="font-weight: 600; font-size: 16px; padding: 12px">
+            Workout
+          </th>
+          <th style="font-weight: 600; font-size: 16px; padding: 12px">
+            Number of workouts
+          </th>
+          <th style="font-weight: 600; font-size: 16px; padding: 12px">
+            Total Workout Minutes
+          </th>
+        </tr>
+      </ng-template>
 
-        <ng-template #body let-workout>
-          <tr class="border-b hover:bg-gray-50 transition duration-200">
-            <td class="p-4">{{ workout.userName }}</td>
-            <td class="p-4">{{ workout.type }}</td>
-            <td class="p-4">{{ workout.workoutNumber }}</td>
-            <td class="p-4">{{ workout.minutes }}</td>
-          </tr>
-        </ng-template>
-        <ng-template #emptymessage>
-          <tr>
-            <td colspan="5">No Workout found.</td>
-          </tr>
-        </ng-template>
-      </p-table>
-    </div>
+      <ng-template #body let-workout>
+        <tr class="border-b hover:bg-gray-50 transition duration-200">
+          <td class="p-4">{{ workout.userName }}</td>
+          <td class="p-4">{{ workout.type }}</td>
+          <td class="p-4">{{ workout.workoutNumber }}</td>
+          <td class="p-4">{{ workout.minutes }}</td>
+        </tr>
+      </ng-template>
+      <ng-template #emptymessage>
+        <tr>
+          <td colspan="5">No Workout found.</td>
+        </tr>
+      </ng-template>
+    </p-table>
   </div>
 </div>

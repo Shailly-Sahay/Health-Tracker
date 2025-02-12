@@ -11,7 +11,7 @@
 }
 
 .input-box {
-  @apply bg-white  text-[var(--dark-text-color)]  w-full py-8 px-12 rounded focus:outline-none  placeholder-muted focus:ring-2 focus:ring-blue-400;
+  @apply bg-white  text-[var(--dark-text-color)]  w-full py-8 px-12 rounded focus:outline-none  placeholder-muted focus:ring-2 focus:ring-[var(--primary-color)];
 }
 
 button {

@@ -35,7 +35,12 @@
             class="input-box"
             required
           >
-            <option value="" disabled selected class="text-white">
+            <option
+              value=""
+              disabled
+              selected
+              class="text-[var(--dark-text-color)]"
+            >
               Select a workout
             </option>
             <option *ngFor="let type of workoutTypes" [value]="type">

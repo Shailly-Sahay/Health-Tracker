@@ -8,6 +8,7 @@ import { SelectModule } from 'primeng/select';
 import { ButtonModule } from 'primeng/button';
 import { WorkoutService } from '../../services/workout.service';
 import { Router } from '@angular/router';
+import { WORKOUT_TYPES } from '../constants/workoutTypes';
 import {
   FormControl,
   FormGroup,
@@ -45,7 +46,7 @@ export class WorkoutFormComponent {
 
   @Output() workoutAdded = new EventEmitter<void>();
 
-  workoutTypes = ['Running', 'Cycling', 'Swimming', 'Yoga', 'Gym'];
+  workoutTypes = WORKOUT_TYPES;
 
   constructor(private workoutService: WorkoutService, private router: Router) {}
 

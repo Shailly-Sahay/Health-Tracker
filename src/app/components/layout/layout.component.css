@@ -3,7 +3,7 @@
 }
 
 .app-container {
-  @apply rounded-2xl h-[80vh] w-[80%] mx-auto overflow-hidden flex relative bg-white/10 backdrop-blur-lg shadow-lg relative bg-[var(--background-color)];
+  @apply rounded-2xl h-[90vh] sm:h-[80vh] w-[80%] mx-auto overflow-hidden flex relative bg-white/10 backdrop-blur-lg shadow-lg relative bg-[var(--background-color)];
 }
 
 .main-content-container {

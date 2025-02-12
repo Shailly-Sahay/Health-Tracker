@@ -4,7 +4,7 @@ import { ChartData, ChartOptions } from 'chart.js';
 import { TableModule } from 'primeng/table';
 import { ChartModule } from 'primeng/chart';
 import { CommonModule } from '@angular/common';
-import { CHART_COLORS } from '../constants/chart-color';
+import { CHART_COLORS } from '../constants/chartColor';
 
 @Component({
   selector: 'app-workout-progress',
@@ -19,8 +19,9 @@ export class WorkoutProgressComponent implements OnInit {
   selectedUser: string | null = null;
   chartData: ChartData<'bar'> | null = null;
   chartOptions: ChartOptions<'bar'> = this.getChartOptions();
-  selectedSize: any = 'small';
+  selectedSize: any = 'large';
   chartColors = CHART_COLORS;
+  title = 'Select a User';
 
   constructor(
     private workoutService: WorkoutService,

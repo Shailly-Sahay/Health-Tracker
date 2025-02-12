@@ -1,35 +1,39 @@
 <div class="workout-progress-container">
   <div class="workout-progress-sub-container">
-    <div class="user-table">
-      <h2 class="mb-6">Select a User</h2>
-      <p-table
-        [value]="users"
-        [scrollable]="true"
-        selectionMode="single"
-        [(selection)]="selectedUser"
-        (onRowSelect)="selectUser($event.data)"
-        [rows]="5"
-        [showCurrentPageReport]="true"
-        [paginator]="true"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-        [size]="selectedSize"
-        [tableStyle]="{
-          background: 'white',
-          borderRadius: '8px',
-          padding: '16px'
-        }"
-      >
-        <ng-template pTemplate="header">
-          <tr>
-            <th style="font-weight: 600; font-size: 16px">User Name</th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-user>
-          <tr [pSelectableRow]="user">
-            <td style="font-size: 14px">{{ user }}</td>
-          </tr>
-        </ng-template>
-      </p-table>
+    <div>
+      <h2 class="mb-6">{{ title }}</h2>
+      <div class="w-full">
+        <p-table
+          [value]="users"
+          [scrollable]="true"
+          selectionMode="single"
+          [(selection)]="selectedUser"
+          (onRowSelect)="selectUser($event.data)"
+          [rows]="5"
+          [showCurrentPageReport]="true"
+          [paginator]="true"
+          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+          [size]="selectedSize"
+          [tableStyle]="{
+            background: 'white',
+            borderRadius: '8px',
+            padding: '16px'
+          }"
+        >
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="font-weight: 600; font-size: 16px; padding: 12px">
+                User Name
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-user>
+            <tr class="p-4" [pSelectableRow]="user">
+              <td>{{ user }}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
     </div>
 
     <div class="workout-chart w-full max-w-4xl mx-auto">

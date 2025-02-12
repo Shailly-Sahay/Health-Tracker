@@ -5,7 +5,7 @@ import { PaginatorModule } from 'primeng/paginator';
 import { TableModule, Table } from 'primeng/table';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
-
+import { WORKOUT_TYPES } from '../constants/workoutTypes';
 @Component({
   selector: 'app-workout-list',
   standalone: true,
@@ -22,6 +22,7 @@ import { InputIconModule } from 'primeng/inputicon';
 export class WorkoutListComponent implements OnInit {
   workouts: any[] = [];
   selectedSize: any = 'large';
+  title = 'View all the Workouts';
 
   @ViewChild('dt') dt: Table | undefined;
 
@@ -30,6 +31,8 @@ export class WorkoutListComponent implements OnInit {
   ngOnInit() {
     this.loadWorkouts();
   }
+
+  workoutTypes = WORKOUT_TYPES;
 
   loadWorkouts() {
     this.workouts = this.workoutService.getWorkouts().map((workout) => ({
