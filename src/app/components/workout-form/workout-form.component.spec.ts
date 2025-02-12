@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { WorkoutFormComponent } from './workout-form.component';
 import { WorkoutService } from '../../services/workout.service';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { By } from '@angular/platform-browser';
 
@@ -23,7 +23,7 @@ describe('WorkoutFormComponent', () => {
     router = jasmine.createSpyObj('Router', ['navigate']);
 
     await TestBed.configureTestingModule({
-      imports: [WorkoutFormComponent, FormsModule],
+      imports: [WorkoutFormComponent, ReactiveFormsModule],
       providers: [
         { provide: WorkoutService, useValue: workoutService },
         { provide: Router, useValue: router },
@@ -39,14 +39,13 @@ describe('WorkoutFormComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should not submit if any field is empty', () => {
-    spyOn(window, 'alert');
+  it('should not submit if form is invalid', () => {
     component.addWorkout();
-    expect(window.alert).toHaveBeenCalledWith('Please fill all fields!');
+    expect(component.workoutForm.invalid).toBeTrue(); // ✅ Check form validity
     expect(workoutService.addWorkout).not.toHaveBeenCalled();
   });
 
-  it('should submit form and call addWorkout', async () => {
+  it('should submit form and call addWorkout with correct data', async () => {
     spyOn(component.workoutAdded, 'emit');
 
     await fillForm(testUser);
@@ -54,12 +53,7 @@ describe('WorkoutFormComponent', () => {
     fixture.detectChanges();
     await fixture.whenStable();
 
-    expect(workoutService.addWorkout).toHaveBeenCalledWith(
-      testUser.userName,
-      testUser.workoutType,
-      testUser.workoutMinutes
-    );
-
+    expect(workoutService.addWorkout).toHaveBeenCalledWith(testUser);
     expect(component.workoutAdded.emit).toHaveBeenCalled();
     expect(router.navigate).toHaveBeenCalledWith(['/workouts']);
   });
@@ -69,9 +63,11 @@ describe('WorkoutFormComponent', () => {
     fixture.detectChanges();
     await fixture.whenStable();
 
-    expect(component.userName).toBe(testUser.userName);
-    expect(component.workoutType).toBe(testUser.workoutType);
-    expect(component.workoutMinutes).toBe(testUser.workoutMinutes);
+    expect(component.userName?.value).toBe(testUser.userName);
+    expect(component.workoutType?.value).toBe(testUser.workoutType);
+    expect(component.workoutMinutes?.value).toBe(
+      Number(testUser.workoutMinutes)
+    );
   });
 
   it('should reset form fields after submission', async () => {
@@ -80,9 +76,9 @@ describe('WorkoutFormComponent', () => {
     fixture.detectChanges();
     await fixture.whenStable();
 
-    expect(component.userName).toBe('');
-    expect(component.workoutType).toBe('');
-    expect(component.workoutMinutes).toBeNull();
+    expect(component.userName?.value).toBeNull();
+    expect(component.workoutType?.value).toBeNull();
+    expect(component.workoutMinutes?.value).toBeNull();
   });
 
   // Helper function to fill the form inputs
@@ -91,9 +87,9 @@ describe('WorkoutFormComponent', () => {
     workoutType,
     workoutMinutes,
   }: typeof testUser) {
-    updateInput('#userName', userName);
-    updateSelect('#workoutType', workoutType);
-    updateInput('#workoutMinutes', String(workoutMinutes));
+    updateInput('[formControlName="userName"]', userName);
+    updateSelect('[formControlName="workoutType"]', workoutType);
+    updateInput('[formControlName="workoutMinutes"]', String(workoutMinutes));
 
     fixture.detectChanges();
     await fixture.whenStable();

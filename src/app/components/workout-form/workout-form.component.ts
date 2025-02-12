@@ -37,7 +37,10 @@ export class WorkoutFormComponent {
   workoutForm = new FormGroup({
     userName: new FormControl('', [Validators.required]),
     workoutType: new FormControl('', [Validators.required]),
-    workoutMinutes: new FormControl('', [Validators.required]),
+    workoutMinutes: new FormControl<number | null>(null, [
+      Validators.required,
+      Validators.min(1),
+    ]),
   });
 
   userName = this.workoutForm.get('userName');

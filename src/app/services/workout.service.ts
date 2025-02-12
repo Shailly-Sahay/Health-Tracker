@@ -77,20 +77,20 @@ export class WorkoutService {
     workoutType: string;
     workoutMinutes: number;
   }) {
-    const { userName, workoutType, workoutMinutes } = workoutData; // ✅ Destructure the object
+    const { userName, workoutType, workoutMinutes } = workoutData;
 
     const existingUser = this.workouts.find(
       (w) => w.userName.trim().toLowerCase() === userName.trim().toLowerCase()
     );
 
     if (existingUser) {
-      // ✅ Always push a new workout entry instead of merging
+      // Always push a new workout entry instead of merging
       existingUser.workouts.push({
         type: workoutType,
         minutes: workoutMinutes,
       });
     } else {
-      // ✅ If user does not exist, create new user with first workout
+      //  If user does not exist, create new user with first workout
       this.workouts.push({
         id: this.workouts.length + 1, // Unique ID for the user
         userName: userName.trim(),
