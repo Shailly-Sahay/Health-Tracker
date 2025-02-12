@@ -3,7 +3,7 @@
 }
 
 .workout-progress-container {
-  @apply py-16 px-8 h-full;
+  @apply p-16 h-full;
 }
 
 .workout-progress-sub-container {

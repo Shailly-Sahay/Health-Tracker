@@ -1,7 +1,7 @@
 <div class="workout-list-container p-6">
   <h2 class="mb-6">{{ title }}</h2>
-  <div class="flex flex-col gap-4 sm:flex-row justify-between mb-8">
-    <p-iconfield iconPosition="left">
+  <div class="flex flex-col gap-8 sm:flex-row justify-between mb-8">
+    <p-iconfield iconPosition="left" class="flex-grow">
       <input
         pInputText
         type="text"
@@ -11,22 +11,16 @@
       />
     </p-iconfield>
 
-    <p-iconfield iconPosition="right">
+    <p-iconfield iconPosition="right" class="flex-grow">
       <select
         name="workoutType"
         formControlName="workoutType"
         class="input-box w-full"
-        placeholder="Search workout"
         (change)="onFilterInput($event, 'type')"
         required
       >
-        <option
-          value=""
-          disabled
-          selected
-          class="text-[var(--dark-text-color)]"
-        >
-          Select a workout
+        <option value="" selected class="text-[var(--dark-text-color)]">
+          Filter by workout
         </option>
         <option *ngFor="let type of workoutTypes" [value]="type">
           {{ type }}

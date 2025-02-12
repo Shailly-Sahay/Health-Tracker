@@ -1,5 +1,5 @@
 :host {
-  @apply h-full;
+  @apply h-full w-full;
 }
 
 .workout-form-container {
