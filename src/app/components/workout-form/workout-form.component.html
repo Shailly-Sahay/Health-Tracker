@@ -20,7 +20,7 @@
         <span
           class="error-text"
           *ngIf="userName && userName.invalid && userName.touched"
-          >This field is required</span
+          >Name is required</span
         >
       </div>
 
@@ -50,7 +50,7 @@
           <span
             class="error-text"
             *ngIf="workoutType && workoutType.invalid && workoutType.touched"
-            >his field is required</span
+            >Please select a workout</span
           >
         </div>
 
@@ -67,11 +67,16 @@
           />
           <span
             class="error-text"
-            *ngIf="
-              workoutMinutes && workoutMinutes.invalid && workoutMinutes.touched
-            "
-            >This field is required</span
+            *ngIf="workoutMinutes?.touched && workoutMinutes?.errors?.['required']"
           >
+            Please enter the workout duration
+          </span>
+          <span
+            class="error-text"
+            *ngIf="workoutMinutes?.touched && workoutMinutes?.errors?.['min']"
+          >
+            Workout duration must be at least 1 minute
+          </span>
         </div>
       </div>
 
