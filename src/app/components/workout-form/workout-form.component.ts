@@ -46,9 +46,6 @@ export class WorkoutFormComponent {
   userName = this.workoutForm.get('userName');
   workoutType = this.workoutForm.get('workoutType');
   workoutMinutes = this.workoutForm.get('workoutMinutes');
-
-  @Output() workoutAdded = new EventEmitter<void>();
-
   workoutTypes = WORKOUT_TYPES;
 
   constructor(private workoutService: WorkoutService, private router: Router) {}
@@ -59,19 +56,18 @@ export class WorkoutFormComponent {
       return;
     }
 
-    console.log('Submitting workout:', this.workoutForm.value); // ✅ Debugging (optional)
+    // console.log('Submitting workout:', this.workoutForm.value);
 
-    // ✅ Submit entire object directly
+    // Submit entire object directly
     const workoutData = {
       userName: this.workoutForm.value.userName as string,
       workoutType: this.workoutForm.value.workoutType as string,
       workoutMinutes: Number(this.workoutForm.value.workoutMinutes),
     };
+
     this.workoutService.addWorkout(workoutData);
 
-    this.workoutAdded.emit();
-
-    // ✅ Reset the form after submission
+    // Reset the form after submission
     this.workoutForm.reset();
 
     this.router.navigate(['/workouts']);
