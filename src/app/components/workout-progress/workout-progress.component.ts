@@ -4,7 +4,7 @@ import { ChartData, ChartOptions } from 'chart.js';
 import { TableModule } from 'primeng/table';
 import { ChartModule } from 'primeng/chart';
 import { CommonModule } from '@angular/common';
-import { CHART_COLORS } from '../constants/chartColor';
+import { CHART_COLORS } from '../../constants/chartColor';
 
 @Component({
   selector: 'app-workout-progress',
