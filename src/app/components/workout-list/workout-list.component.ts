@@ -23,6 +23,7 @@ export class WorkoutListComponent implements OnInit {
   workouts: any[] = [];
   selectedSize: any = 'large';
   title = 'View all the Workouts';
+  workoutTypes = WORKOUT_TYPES;
 
   @ViewChild('dt') dt: Table | undefined;
 
@@ -31,8 +32,6 @@ export class WorkoutListComponent implements OnInit {
   ngOnInit() {
     this.loadWorkouts();
   }
-
-  workoutTypes = WORKOUT_TYPES;
 
   loadWorkouts() {
     this.workouts = this.workoutService.getWorkouts().map((workout) => ({
